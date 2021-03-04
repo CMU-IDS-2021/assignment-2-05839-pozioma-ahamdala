@@ -1,7 +1,9 @@
 # CMU Interactive Data Science Assigment 2
 
 * **Team members**: ahamdala@andrew.cmu.edu and pozioma@andrew.cmu.edu
-* **Online URL**: https://share.streamlit.io/cmu-ids-2021/assignment-2-05839-pozioma-ahamdala/master/streamlit_app.py 
+* **Online URL**: https://share.streamlit.io/cmu-ids-2021/assignment-2-05839-pozioma-ahamdala
+
+
 
 ## Instructions
 
