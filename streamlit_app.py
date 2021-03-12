@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
+import streamlit.components.v1 as components
 
 st.title("Hamdy, Let's analyze some Penguin Data 🐧📊.")
 
@@ -27,3 +28,5 @@ chart = alt.Chart(df).mark_point().encode(
 ).interactive()
 
 st.write(chart)
+html_temp = """https://public.tableau.com/views/Book1_16155695091580/Dashboard1?:language=en&:display_count=y&publish=yes&:origin=viz_share_link"""
+components.html(html_temp)
