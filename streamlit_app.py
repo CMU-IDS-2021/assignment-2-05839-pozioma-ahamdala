@@ -11,6 +11,8 @@ def load_data():
     penguins_url = "https://raw.githubusercontent.com/allisonhorst/palmerpenguins/v0.1.0/inst/extdata/penguins.csv"
     return pd.read_csv(penguins_url)
 
+html_temp = """https://public.tableau.com/views/Book1_16155695091580/Dashboard1?:language=en&:display_count=y&publish=yes&:origin=viz_share_link"""
+components.html(html_temp)
 df = load_data()
 
 st.write("Let's look at raw data in the Pandas Data Frame.")
@@ -28,5 +30,4 @@ chart = alt.Chart(df).mark_point().encode(
 ).interactive()
 
 st.write(chart)
-html_temp = """https://public.tableau.com/views/Book1_16155695091580/Dashboard1?:language=en&:display_count=y&publish=yes&:origin=viz_share_link"""
-components.html(html_temp)
+
