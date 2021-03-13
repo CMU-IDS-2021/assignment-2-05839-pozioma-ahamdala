@@ -20,6 +20,8 @@ def load_data():
 #components.html(html_temp, width=1000, height=1000)
 
 #The map ends here, we will move it as appropraite
+
+
 df = pd.read_excel('Copy of nga_subnational_covid19_hera.xlsx')
 
 
@@ -43,7 +45,7 @@ no_of_cases_first_lockdown = df_cases_by_date.loc[ df_cases_by_date['DATE']==loc
 first_lockdown_start = pd.DataFrame([{"first_lockdown": lockdown_date, "CONTAMINES": no_of_cases_first_lockdown} ])
  
 first_lockdown_start_line = alt.Chart(first_lockdown_start).mark_point().encode(
-    x='first_lockdown:T', color=alt.value('red'), y='CONTAMINES:Q'
+    alt.X('first_lockdown:T', title=''), color=alt.value('red'), y='CONTAMINES:Q'
 )
 
 st.write((new_and_cum_cases+first_lockdown_start_line).interactive().properties(width=800))
