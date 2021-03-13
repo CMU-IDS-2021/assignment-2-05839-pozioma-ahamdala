@@ -44,15 +44,20 @@ new_and_cum_cases = alt.Chart(df_cases_by_date).transform_fold(
 )
 
 
-
 lockdown_date = datetime.datetime(2020,3,30)
-no_of_cases_first_lockdown = df_cases_by_date.loc[ df_cases_by_date['DATE']==lockdown_date, 'CONTAMINES']
+lockdown2_date = datetime.datetime(2020,12,21)
+no_of_cases_first_lockdown = df_cases_by_date.loc[ df_cases_by_date['DATE']==lockdown_date, 'CONTAMINES'].values[0]
+no_of_cases_second_lockdown = df_cases_by_date.loc[ df_cases_by_date['DATE']==lockdown2_date, 'CONTAMINES'].values[0]
 
-first_lockdown_start = pd.DataFrame([{"DATE": lockdown_date, "CONTAMINES": no_of_cases_first_lockdown} ])
- 
+
+lockdown_starts = {"DATE": [lockdown_date, lockdown2_date], "CONTAMINES": [no_of_cases_first_lockdown, no_of_cases_second_lockdown ]}
+first_lockdown_start = pd.DataFrame(lockdown_starts, columns=["DATE", "CONTAMINES"])
+lockdown_start = pd.DataFrame([{"DATE": lockdown_date, "CONTAMINES": no_of_cases_first_lockdown} ])
+
 first_lockdown_start_line = alt.Chart(first_lockdown_start).mark_point(size=300).encode(
     alt.X('DATE:T', title=''), color=alt.value('red'), y='CONTAMINES:Q'
 )
+
 
 combined = first_lockdown_start_line+new_and_cum_cases
 to_plot1 = combined.add_selection(picked).interactive().properties(width=800)
