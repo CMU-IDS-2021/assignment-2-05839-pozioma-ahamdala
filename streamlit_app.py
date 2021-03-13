@@ -44,8 +44,8 @@ no_of_cases_first_lockdown = df_cases_by_date.loc[ df_cases_by_date['DATE']==loc
 
 first_lockdown_start = pd.DataFrame([{"DATE": lockdown_date, "CONTAMINES": no_of_cases_first_lockdown} ])
  
-first_lockdown_start_line = alt.Chart(first_lockdown_start).mark_point(size=300).encode(
-    alt.X('DATE:T', title=''), color=alt.value('red'), y='CONTAMINES:Q'
+first_lockdown_start_line = alt.Chart(first_lockdown_start).mark_point(size=30000).encode(
+    alt.X('DATE:T'), color=alt.value('red'), y='CONTAMINES:Q'
 )
 
 st.write((new_and_cum_cases+first_lockdown_start_line).interactive().properties(width=800))
