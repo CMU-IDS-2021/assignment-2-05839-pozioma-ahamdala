@@ -50,4 +50,4 @@ first_lockdown_start_line = alt.Chart(first_lockdown_start).mark_point(size=300)
 
 st.write((new_and_cum_cases+first_lockdown_start_line).interactive().properties(width=800))
 #(new_and_cum_cases+first_lockdown_start_line).interactive().properties(width=800)
-#st.write(first_lockdown_start_line)
+st.write(first_lockdown_start_line)
