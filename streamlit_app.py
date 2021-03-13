@@ -25,6 +25,9 @@ def load_data():
 df = pd.read_excel('Copy of nga_subnational_covid19_hera.xlsx')
 
 
+
+picked=alt.selection_single(empty='none')
+
 #The new cases and cumulative cases
 df['New Cases'] = df['CONTAMINES']
 df_cases_by_date = df.groupby(df['DATE']).sum()
@@ -38,7 +41,7 @@ new_and_cum_cases = alt.Chart(df_cases_by_date).transform_fold(
     alt.X('DATE:T'),
     alt.Y('value:Q', title=''),
     color='key:N'
-).interactive()
+)
 
 
 
@@ -51,4 +54,6 @@ first_lockdown_start_line = alt.Chart(first_lockdown_start).mark_point(size=300)
     alt.X('DATE:T', title=''), color=alt.value('red'), y='CONTAMINES:Q'
 )
 
-st.write((first_lockdown_start_line+new_and_cum_cases).interactive().properties(width=800))
+combined = first_lockdown_start_line+new_and_cum_cases
+to_plot1 = combined.add_selection(picked).interactive().properties(width=800)
+st.write(to_plot1)
