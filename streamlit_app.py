@@ -20,7 +20,7 @@ def load_data():
 #components.html(html_temp, width=1000, height=1000)
 
 #The map ends here, we will move it as appropraite
-df = pd.read_csv('nga_subnational_covid19_hera.xlsx - Feuil1.csv')
+df = pd.read_excel('Copy of nga_subnational_covid19_hera.xlsx')
 
 
 #The new cases and cumulative cases
