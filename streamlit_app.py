@@ -30,6 +30,7 @@ df['New Cases'] = df['CONTAMINES']
 df_cases_by_date = df.groupby(df['DATE']).sum()
 df_cases_by_date = df_cases_by_date.reset_index()
 df_cases_by_date['Active Cases (in hundreds)'] = (df_cases_by_date['CONTAMINES'].cumsum())/100
+df_cases_by_date['First lockdown'] = datetime.datetime(2020, 3, 30)
 
 new_and_cum_cases = alt.Chart(df_cases_by_date).transform_fold(
     ['New Cases', 'Active Cases (in hundreds)'],
@@ -39,14 +40,15 @@ new_and_cum_cases = alt.Chart(df_cases_by_date).transform_fold(
     color='key:N'
 ).interactive()
 
+
+
 lockdown_date = datetime.datetime(2020,3,30)
 no_of_cases_first_lockdown = df_cases_by_date.loc[ df_cases_by_date['DATE']==lockdown_date, 'CONTAMINES']
 
 first_lockdown_start = pd.DataFrame([{"DATE": lockdown_date, "CONTAMINES": no_of_cases_first_lockdown} ])
  
-first_lockdown_start_line = alt.Chart(first_lockdown_start).mark_point().encode(
-    alt.X('DATE:T'), color=alt.value('red'), y='CONTAMINES:Q'
+first_lockdown_start_line = alt.Chart(first_lockdown_start).mark_point(size=300).encode(
+    alt.X('DATE:T', title=''), color=alt.value('red'), y='CONTAMINES:Q'
 )
 
-st.write((new_and_cum_cases+first_lockdown_start_line).interactive().properties(width=800))
-#(first_lockdown_start_line).interactive().properties(width=800)
+st.write((first_lockdown_start_line+new_and_cum_cases).interactive().properties(width=800))
