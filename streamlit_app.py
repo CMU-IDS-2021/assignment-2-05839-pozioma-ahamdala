@@ -8,8 +8,8 @@ st.title("Hamdy, Let's analyze some Penguin Data 🐧📊.")
 @st.cache  # add caching so we load the data only once
 def load_data():
     # Load the penguin data from https://github.com/allisonhorst/palmerpenguins.
-    penguins_url = "Copy of nga_subnational_covid19_hera.xlsx"
-    return pd.read_excel(penguins_url, engine='openpyxl')
+    penguins_url = "nga_subnational_covid19_hera.xlsx - Feuil1.csv"
+    return pd.read_csv(penguins_url)
 
 #The map starts here
 
