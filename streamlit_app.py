@@ -6,7 +6,7 @@ import datetime
 
 st.title("Hamdy, Let's analyze some Penguin Data 🐧📊.")
 
-@st.cache  # add caching so we load the data only once
+#@st.cache  # add caching so we load the data only once
 def load_data():
     # Load the penguin data from https://github.com/allisonhorst/palmerpenguins.
     penguins_url = "nga_subnational_covid19_hera.xlsx - Feuil1.csv"
@@ -20,7 +20,7 @@ def load_data():
 #components.html(html_temp, width=1000, height=1000)
 
 #The map ends here, we will move it as appropraite
-df = load_data()
+df = pd.read_csv(nga_subnational_covid19_hera.xlsx - Feuil1.csv)
 
 
 #The new cases and cumulative cases
@@ -46,5 +46,5 @@ first_lockdown_start_line = alt.Chart(first_lockdown_start).mark_point().encode(
     x='first_lockdown:T', color=alt.value('red'), y='CONTAMINES:Q'
 )
 
-st.write((comb+first_lockdown_start_line).interactive().properties(width=800))
+st.write((new_and_cum_cases+first_lockdown_start_line).interactive().properties(width=800))
 
