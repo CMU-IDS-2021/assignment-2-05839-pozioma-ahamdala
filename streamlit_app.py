@@ -144,6 +144,50 @@ to_plot1 = combined.interactive().properties(width=600, title='COVID-19 in Niger
 #Situation in Nigeria at a Glance Ends
 
 
+#Some variables resolution
+#States Division
+df_fct = df.loc[df['REGION']=='Federal Capital Territory'].dropna(axis=0, how='all')
+df_lagos = df.loc[df['REGION'] == 'Lagos'].dropna(axis=0, how='all')
+df_kano = df.loc[df['REGION']=='Kano'].dropna(axis=0, how='all')
+df_rivers = df.loc[df['REGION'] == 'Rivers'].dropna(axis=0, how='all')
+
+df_fct = df_fct.reset_index()
+df_lagos = df_lagos.reset_index()
+df_kano = df_kano.reset_index()
+df_rivers = df_rivers.reset_index()
+
+
+states_new_cases = pd.DataFrame(columns=['DATE', 'Lagos', 'Kano', 'Federal Capital Territory', 'Rivers'])
+states_new_cases['DATE'] = df_lagos['DATE']
+states_new_cases['Lagos'] = df_lagos['New Cases']
+states_new_cases['Kano'] = df_kano['New Cases']
+states_new_cases['Federal Capital Territory'] = df_fct['New Cases']
+states_new_cases['Rivers'] = df_rivers['New Cases']
+
+
+
+
+
+
+
+#New Cases each state starts here
+
+base = alt.Chart().mark_line().encode(
+
+).properties(
+    width=200,
+    height=200
+).interactive()
+
+chart = alt.vconcat(data=states_new_cases)
+
+for y_encoding in ['Lagos:Q', 'Kano:Q', 'Rivers:Q', 'Federal Capital Territory:Q']:
+    row = alt.hconcat()
+    for x_encoding in ['DATE:T']:
+        row |= base.encode(x_encoding, y=y_encoding).properties(height=300, width=500)
+    chart &= row
+
+#New Cases each state ends starts here
 
 
 
@@ -151,3 +195,4 @@ to_plot1 = combined.interactive().properties(width=600, title='COVID-19 in Niger
 #We put elements on screen here
 st.write(to_plot1 | make_selector)
 components.html(html_temp, width=1000, height=700)
+st.write(chart)
