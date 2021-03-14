@@ -76,6 +76,13 @@ first_lockdown_start = alt.Chart(df_cases_by_date).mark_rule().encode(
     x='lockdown_date', color=alt.value('green'))
 
 
+
+df_cases_by_date['lockdown2_date'] = lockdown2_date 
+second_lockdown_start = alt.Chart(df_cases_by_date).mark_rule().encode(
+    x='lockdown2_date', color=alt.value('green'),
+    tooltip=['lockdown2_date'])
+
+
 text_first_lockdown = first_lockdown_start.mark_text(
     align='left',
     baseline='middle',
@@ -128,10 +135,7 @@ text_second_lockdown_end = second_lockdown_end.mark_text(
 
 
 
-df_cases_by_date['lockdown2_date'] = lockdown2_date 
-second_lockdown_start = alt.Chart(df_cases_by_date).mark_rule().encode(
-    x='lockdown2_date', color=alt.value('green'),
-    tooltip=['lockdown2_date'])
+
 
 
 combined = new_and_cum_cases+first_lockdown_start+second_lockdown_start +text_first_lockdown + text_second_lockdown + first_lockdown_end + text_first_lockdown_end + second_lockdown_end + text_second_lockdown_end
