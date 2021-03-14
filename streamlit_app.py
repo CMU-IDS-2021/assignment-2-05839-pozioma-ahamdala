@@ -43,7 +43,7 @@ df2 = df_cases_by_date[['DATE', 'New Cases', 'Active Cases (in hundreds)', 'Perc
 df3 = df2.melt(id_vars=['DATE'], var_name='Trendline', value_name='value')
 selection = alt.selection_multi(fields=['Trendline'])
 color = alt.condition(selection, alt.Color('Trendline:N'), alt.value('lightgray'))
-make_selector = alt.Chart(make).mark_rect().encode(y='Trendline', color=color).add_selection(selection)
+make_selector = alt.Chart(make).mark_rect(align='right').encode(alt.Y('Trendline',axis=alt.Axis(orient='right')), color='Trendline:N').add_selection(selection)
 new_and_cum_cases = alt.Chart(df3).mark_line().encode(alt.X('DATE:T', title="DATE"), y=alt.Y('value:Q', title= " "), color=alt.Color('Trendline:N', legend=None),
                                                       tooltip=['DATE', 'value:Q']
                                                       ).transform_filter(selection).interactive()
