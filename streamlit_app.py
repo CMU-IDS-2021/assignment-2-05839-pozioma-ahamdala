@@ -186,13 +186,13 @@ base = alt.Chart().mark_line().encode(
 chart = alt.vconcat(data=states_new_cases)
 
 row= alt.hconcat()
-row |= base.encode(alt.X('DATE:T'), alt.Y('Lagos:Q', title="New Cases in Lagos")).properties(height=200, width=350)
-row |= base.encode(alt.X('DATE:T'), alt.Y('Kano:Q', title="New Cases in Kano")).properties(height=200, width=350)
+row |= base.encode(alt.X('DATE:T'), alt.Y('Lagos:Q', title="New Cases in Lagos")).properties(height=200, width=350) + first_lockdown_start+second_lockdown_start +text_first_lockdown + text_second_lockdown + first_lockdown_end + text_first_lockdown_end + second_lockdown_end + text_second_lockdown_end
+row |= base.encode(alt.X('DATE:T'), alt.Y('Kano:Q', title="New Cases in Kano")).properties(height=200, width=350) + first_lockdown_start+second_lockdown_start +text_first_lockdown + text_second_lockdown + first_lockdown_end + text_first_lockdown_end + second_lockdown_end + text_second_lockdown_end
 chart &= row
 
 row= alt.hconcat()
-row |= base.encode(alt.X('DATE:T'), alt.Y('Rivers:Q', title="New Cases in Rivers")).properties(height=200, width=350)
-row |= base.encode(alt.X('DATE:T'), alt.Y('Federal Capital Territory:Q', title="New Cases in Federal Capital Territory")).properties(height=200, width=350)
+row |= base.encode(alt.X('DATE:T'), alt.Y('Rivers:Q', title="New Cases in Rivers")).properties(height=200, width=350) + first_lockdown_start+second_lockdown_start +text_first_lockdown + text_second_lockdown + first_lockdown_end + text_first_lockdown_end + second_lockdown_end + text_second_lockdown_end
+row |= base.encode(alt.X('DATE:T'), alt.Y('Federal Capital Territory:Q', title="New Cases in Federal Capital Territory")).properties(height=200, width=350) + first_lockdown_start+second_lockdown_start +text_first_lockdown + text_second_lockdown + first_lockdown_end + text_first_lockdown_end + second_lockdown_end + text_second_lockdown_end
 chart &= row
 
 
