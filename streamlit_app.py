@@ -4,7 +4,7 @@ import altair as alt
 import streamlit.components.v1 as components
 import datetime
 
-st.markdown("<h1 style='text-align: left; color: black;'>COVID-19, Restrictions and Mobility in Nigeria</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: black;'>COVID-19, Restrictions and Mobility in Nigeria</h1>", unsafe_allow_html=True)
 st.title("COVID-19, Restrictions and Mobility in Nigeria")
 
 #@st.cache  # add caching so we load the data only once
