@@ -73,13 +73,13 @@ first_lockdown_start_line = alt.Chart(first_lockdown_start).mark_point(size=200)
 
 df_cases_by_date['lockdown_date'] = lockdown_date 
 first_lockdown_start = alt.Chart(df_cases_by_date).mark_rule().encode(
-    x='lockdown_date', color=alt.value('green'))
+    alt.X('lockdown_date', title=""), color=alt.value('green'))
 
 
 
 df_cases_by_date['lockdown2_date'] = lockdown2_date 
 second_lockdown_start = alt.Chart(df_cases_by_date).mark_rule().encode(
-    x='lockdown2_date', color=alt.value('green'),
+    alt.X('lockdown2_date', title=""), color=alt.value('green'),
     tooltip=['lockdown2_date'])
 
 
@@ -103,7 +103,7 @@ text_second_lockdown = second_lockdown_start.mark_text(
 lockdown1_end = datetime.datetime(2020, 7, 27)
 df_cases_by_date['lockdown1_end'] = lockdown1_end 
 first_lockdown_end = alt.Chart(df_cases_by_date).mark_rule().encode(
-    x='lockdown1_end', color=alt.value('black'))
+    alt.X('lockdown1_end', title=""), color=alt.value('black'))
 
 
 text_first_lockdown_end = first_lockdown_end.mark_text(
@@ -118,7 +118,7 @@ text_first_lockdown_end = first_lockdown_end.mark_text(
 lockdown2_end = datetime.datetime(2021, 1, 18)
 df_cases_by_date['lockdown2_end'] = lockdown2_end 
 second_lockdown_end = alt.Chart(df_cases_by_date).mark_rule().encode(
-    x='lockdown2_end', color=alt.value('black'))
+    alt.X('lockdown2_end', title=""), color=alt.value('black'))
 
 
 text_second_lockdown_end = second_lockdown_end.mark_text(
@@ -141,6 +141,7 @@ text_second_lockdown_end = second_lockdown_end.mark_text(
 combined = new_and_cum_cases+first_lockdown_start+second_lockdown_start +text_first_lockdown + text_second_lockdown + first_lockdown_end + text_first_lockdown_end + second_lockdown_end + text_second_lockdown_end
 to_plot1 = combined.interactive().properties(width=800, title='COVID-19 in Nigeria as at 3rd of March 2020 -- Green and black lines represent start and end of major restrictions resp.')
 st.write(make_selector | to_plot1)
+
 
 
 #Situation in Nigeria at a Glance Ends
