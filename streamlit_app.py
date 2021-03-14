@@ -197,6 +197,6 @@ for y_encoding in ['Lagos:Q', 'Kano:Q', 'Rivers:Q', 'Federal Capital Territory:Q
 
 
 #We put elements on screen here
-st.write(to_plot1 | make_selector)
+#st.write(to_plot1 | make_selector)
 components.html(html_temp, width=1000, height=700)
-st.write(chart)
+#st.write(chart)
