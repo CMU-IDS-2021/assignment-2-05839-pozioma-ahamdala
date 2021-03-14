@@ -27,6 +27,8 @@ df = pd.read_excel('Copy of nga_subnational_covid19_hera.xlsx')
 
 
 
+
+
 #Situation in Nigeria at a Glance
 
 df['New Cases'] = df['CONTAMINES']
@@ -184,8 +186,10 @@ chart = alt.vconcat(data=states_new_cases)
 for y_encoding in ['Lagos:Q', 'Kano:Q', 'Rivers:Q', 'Federal Capital Territory:Q']:
     row = alt.hconcat()
     for x_encoding in ['DATE:T']:
-        row |= base.encode(x_encoding, y=y_encoding).properties(height=300, width=500)
+        row |= base.encode(x=x_encoding, y=y_encoding).properties(height=300, width=500)
     chart &= row
+
+#New Cases each state ends starts here
 
 #New Cases each state ends starts here
 
