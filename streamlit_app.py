@@ -141,7 +141,7 @@ text_second_lockdown_end = second_lockdown_end.mark_text(
 
 combined = new_and_cum_cases+first_lockdown_start+second_lockdown_start +text_first_lockdown + text_second_lockdown + first_lockdown_end + text_first_lockdown_end + second_lockdown_end + text_second_lockdown_end
 to_plot1 = combined.interactive().properties(width=800, title='COVID-19 in Nigeria as at 3rd of March 2020 -- Green and black lines represent start and end of major restrictions resp.')
-st.write(make_selector | to_plot1)
+st.write(to_plot1 | make_selector)
 
 
 
