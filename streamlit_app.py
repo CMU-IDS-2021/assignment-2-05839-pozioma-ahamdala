@@ -150,4 +150,4 @@ to_plot1 = combined.interactive().properties(width=800, title='COVID-19 in Niger
 
 #We put elements on screen here
 st.write(to_plot1 | make_selector)
-components.html(html_temp, width=1000, height=1000)
+components.html(html_temp, width=1000, height=700)
