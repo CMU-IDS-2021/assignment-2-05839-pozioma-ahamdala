@@ -174,6 +174,8 @@ states_new_cases['Rivers'] = df_rivers['New Cases']
 
 #New Cases each state starts here
 
+#New Cases each state starts here
+
 base = alt.Chart().mark_line().encode(
 
 ).properties(
@@ -183,11 +185,16 @@ base = alt.Chart().mark_line().encode(
 
 chart = alt.vconcat(data=states_new_cases)
 
-for y_encoding in ['Lagos:Q', 'Kano:Q', 'Rivers:Q', 'Federal Capital Territory:Q']:
-    row = alt.hconcat()
-    for x_encoding in ['DATE:T']:
-        row |= base.encode(x=x_encoding, y=y_encoding).properties(height=300, width=500)
-    chart &= row
+row= alt.hconcat()
+row |= base.encode(alt.X('DATE:T'), alt.Y('Lagos:Q', title="New Cases in Lagos")).properties(height=300, width=500)
+row |= base.encode(alt.X('DATE:T'), alt.Y('Kano:Q', title="New Cases in Kano")).properties(height=300, width=500)
+chart &= row
+
+row= alt.hconcat()
+row |= base.encode(alt.X('DATE:T'), alt.Y('Rivers:Q', title="New Cases in Rivers")).properties(height=300, width=500)
+row |= base.encode(alt.X('DATE:T'), alt.Y('Federal Capital Territory:Q', title="New Cases in Federal Capital Territory")).properties(height=300, width=500)
+chart &= row
+
 
 #New Cases each state ends starts here
 
