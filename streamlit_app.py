@@ -4,7 +4,7 @@ import altair as alt
 import streamlit.components.v1 as components
 import datetime
 
-st.title("Hamdy, Let's analyze some Penguin Data 🐧📊.")
+st.title("COVID-19, Restrictions and Mobility in Nigeria")
 
 #@st.cache  # add caching so we load the data only once
 def load_data():
