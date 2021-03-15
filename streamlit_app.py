@@ -171,7 +171,6 @@ first_chart_states = (lockdown_chart + lockdown_chart2 + new_and_cum_cases_state
 #MOBILITY
 df_m = pd.read_excel('NigeriaMobilityData.xlsx')
 
-
 lag = df_m[df_m.State == "Lagos"]
 kan = df_m[df_m.State == "Kano"]
 abj = df_m[df_m.State == "FCT"]
@@ -192,7 +191,6 @@ abj = abj.reset_index()
 riv.set_index("date", inplace=True)
 riv = riv.resample('W').mean()
 riv = riv.reset_index()
-
 
 df_m.set_index("date", inplace=True)
 df_m = df_m.resample('W').mean()
@@ -247,7 +245,6 @@ row |= abj_mob
 row |= riv_mob
 chart_m &= row
 
-st.write(chart_m | make_selector_m)
 #We put elements on screen here
 
 st.markdown("<h2 style='text-align: center; color: black;'>Nigeria at a Glance</h2>", unsafe_allow_html=True)
@@ -256,3 +253,4 @@ components.html(html_temp, width=1000, height=700)
 st.write(first_chart)
 st.write(first_chart_states)
 st.write(second_chart | make_selector2 & make_selector3)
+st.write(chart_m | make_selector_m)
