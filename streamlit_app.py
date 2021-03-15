@@ -228,8 +228,8 @@ riv_mob = alt.Chart(df3).mark_line().encode(alt.X('date:T', title="DATE"), y=alt
 base = alt.Chart().mark_line().encode(
 
 ).properties(
-    width=200,
-    height=200
+    width=400,
+    height=400
 ).transform_filter(selection).interactive()
 
 empty_df = pd.DataFrame(columns = ['Date'])
