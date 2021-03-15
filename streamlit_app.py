@@ -20,17 +20,9 @@ html_temp = """
     <div class='tableauPlaceholder' id='viz1615584326049' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Bo&#47;Book1_16155695091580&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='Book1_16155695091580&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Bo&#47;Book1_16155695091580&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1615584326049');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='900px';vizElement.style.height='527px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='900px';vizElement.style.height='527px';} else { vizElement.style.width='100%';vizElement.style.height='727px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
     """
 
-
 #The map ends here, we will move it as appropraite
 
-
 df = pd.read_excel('Copy of nga_subnational_covid19_hera.xlsx')
-
-
-
-
-
-
 
 
 #Situation in Nigeria at a Glance
@@ -55,10 +47,6 @@ make_selector = alt.Chart(make).mark_rect(align='right').encode(alt.Y('Trendline
 new_and_cum_cases = alt.Chart(df3).mark_line().encode(alt.X('DATE:T', title="DATE"), y=alt.Y('value:Q', title= " "), color=alt.Color('Trendline:N', legend=None),
                                                       tooltip=['DATE', 'value:Q']
                                                       ).transform_filter(selection).interactive()
-
-
-
-
 
 #Lockdown One
 lockdown1_start = datetime.datetime(2020, 3, 30)
@@ -180,6 +168,86 @@ new_and_cum_cases_states = alt.Chart(df3_states).mark_line().encode(alt.X('DATE:
 
 first_chart_states = (lockdown_chart + lockdown_chart2 + new_and_cum_cases_states).properties(width=600, title='Active, New and Percentage Change in New Cases in Lagos, Kano, Rivers and the FCT') | (make_selector_states & make_selector2 & make_selector3)
 
+#MOBILITY
+df_m = pd.read_excel('NigeriaMobilityData.xlsx')
+
+
+lag = df_m[df_m.State == "Lagos"]
+kan = df_m[df_m.State == "Kano"]
+abj = df_m[df_m.State == "FCT"]
+riv = df_m[df_m.State == "Rivers"]
+
+lag.set_index("date", inplace=True)
+lag = lag.resample('W').mean()
+lag = lag.reset_index()
+
+kan.set_index("date", inplace=True)
+kan = kan.resample('W').mean()
+kan = kan.reset_index()
+
+abj.set_index("date", inplace=True)
+abj = abj.resample('W').mean()
+abj = abj.reset_index()
+
+riv.set_index("date", inplace=True)
+riv = riv.resample('W').mean()
+riv = riv.reset_index()
+
+
+df_m.set_index("date", inplace=True)
+df_m = df_m.resample('W').mean()
+df_m = df_m.reset_index()
+
+make = pd.DataFrame({'Trendline': ['retail_and_recreation', 'grocery_and_pharmacy', 'parks_percent', 'transit_stations', 'workplaces', 'residential']})
+df2 = lag[['date', 'retail_and_recreation', 'grocery_and_pharmacy', 'parks_percent', 'transit_stations', 'workplaces', 'residential']] 
+df3 = lag.melt(id_vars=['date'], var_name='Trendline', value_name='value')
+selection = alt.selection_multi(fields=['Trendline'])
+
+color = alt.condition(selection, alt.Color('Trendline:N'), alt.value('lightgray'))
+make_selector_m = alt.Chart(make).mark_rect(align='right').encode(alt.Y('Trendline',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection).properties(title='Trendline Filter')
+lag_mob = alt.Chart(df3).mark_line().encode(alt.X('date:T', title="DATE"), y=alt.Y('value:Q', title= "Percentage Increase from Baseline"), color=alt.Color('Trendline:N', legend=None),
+                                                      tooltip=['date', 'value:Q']
+                                                      ).transform_filter(selection).interactive()
+
+
+df2 = kan[['date', 'retail_and_recreation', 'grocery_and_pharmacy', 'parks_percent', 'transit_stations', 'workplaces', 'residential']] 
+df3 = kan.melt(id_vars=['date'], var_name='Trendline', value_name='value')
+kan_mob = alt.Chart(df3).mark_line().encode(alt.X('date:T', title="DATE"), y=alt.Y('value:Q', title= "Percentage Increase from Baseline"), color=alt.Color('Trendline:N', legend=None),
+                                                      tooltip=['date', 'value:Q']
+                                                      ).transform_filter(selection).interactive()
+
+df2 = abj[['date', 'retail_and_recreation', 'grocery_and_pharmacy', 'parks_percent', 'transit_stations', 'workplaces', 'residential']] 
+df3 = abj.melt(id_vars=['date'], var_name='Trendline', value_name='value')
+abj_mob = alt.Chart(df3).mark_line().encode(alt.X('date:T', title="DATE"), y=alt.Y('value:Q', title= "Percentage Increase from Baseline"), color=alt.Color('Trendline:N', legend=None),
+                                                      tooltip=['date', 'value:Q']
+                                                      ).transform_filter(selection).interactive()
+
+df2 = riv[['date', 'retail_and_recreation', 'grocery_and_pharmacy', 'parks_percent', 'transit_stations', 'workplaces', 'residential']] 
+df3 = riv.melt(id_vars=['date'], var_name='Trendline', value_name='value')
+riv_mob = alt.Chart(df3).mark_line().encode(alt.X('date:T', title="DATE"), y=alt.Y('value:Q', title= "Percentage Increase from Baseline"), color=alt.Color('Trendline:N', legend=None),
+                                                      tooltip=['date', 'value:Q']
+                                                      ).transform_filter(selection).interactive()
+
+base = alt.Chart().mark_line().encode(
+
+).properties(
+    width=200,
+    height=200
+).interactive()
+
+chart_m = alt.vconcat()
+
+row= alt.hconcat()
+row |= lag_mob
+row |= kan_mob
+chart_m &= row
+
+row= alt.hconcat()
+row |= abj_mob
+row |= riv_mob
+chart_m &= row
+
+st.write(chart_m | make_selector_m)
 #We put elements on screen here
 
 st.markdown("<h2 style='text-align: center; color: black;'>Nigeria at a Glance</h2>", unsafe_allow_html=True)
