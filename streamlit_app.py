@@ -233,13 +233,13 @@ empty_df = pd.DataFrame(columns = ['Date'])
 chart_m = alt.vconcat(data=empty_df)
 
 row= alt.hconcat()
-row |= base.encode(alt.X('date:T', title="DATE")).properties(height=200, width=350, title="Lagos") + lag_mob
-row |= base.encode(alt.X('date:T', title="DATE")).properties(height=200, width=350, title="Kano") + kan_mob
+row |= base.encode(alt.X('date:T', title="DATE")).properties(height=200, width=350, title="Lagos") + lag_mob + lockdown_chart + lockdown_chart2
+row |= base.encode(alt.X('date:T', title="DATE")).properties(height=200, width=350, title="Kano") + kan_mob + lockdown_chart + lockdown_chart2
 chart_m &= row
 
 row= alt.hconcat()
-row |= base.encode(alt.X('date:T', title="DATE")).properties(height=200, width=350, title="Federal Capital Territory") + abj_mob
-row |= base.encode(alt.X('date:T', title="DATE")).properties(height=200, width=350, title="Rivers") + riv_mob
+row |= base.encode(alt.X('date:T', title="DATE")).properties(height=200, width=350, title="Federal Capital Territory") + abj_mob + lockdown_chart + lockdown_chart2
+row |= base.encode(alt.X('date:T', title="DATE")).properties(height=200, width=350, title="Rivers") + riv_mob + lockdown_chart + lockdown_chart2
 chart_m &= row
 
 #We put elements on screen here
