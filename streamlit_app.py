@@ -230,18 +230,18 @@ base = alt.Chart().mark_line().encode(
 ).properties(
     width=200,
     height=200
-).interactive()
+).transform_filter(selection).interactive()
 
 chart_m = alt.vconcat()
 
 row= alt.hconcat()
-row |= lag_mob.interactive()
-row |= kan_mob.interactive()
+row |= base + lag_mob
+row |= base + kan_mob
 chart_m &= row
 
 row= alt.hconcat()
-row |= abj_mob.interactive()
-row |= riv_mob.interactive()
+row |= base + abj_mob
+row |= base + riv_mob
 chart_m &= row
 
 #We put elements on screen here
