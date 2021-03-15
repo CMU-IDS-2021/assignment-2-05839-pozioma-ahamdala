@@ -3,6 +3,7 @@ import pandas as pd
 import altair as alt
 import streamlit.components.v1 as components
 import datetime
+import numpy as np
 
 st.markdown("<h1 style='text-align: center; color: black;'>COVID-19, Restrictions and Mobility in Nigeria</h1>", unsafe_allow_html=True)
 st.title("COVID-19, Restrictions and Mobility in Nigeria")
