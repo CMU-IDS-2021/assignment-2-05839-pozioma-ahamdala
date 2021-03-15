@@ -232,16 +232,17 @@ base = alt.Chart().mark_line().encode(
     height=200
 ).transform_filter(selection).interactive()
 
-chart_m = alt.vconcat(data=df_m)
+empty_df = pd.DataFrame(columns = ['Date'])
+chart_m = alt.vconcat(data=empty_df)
 
 row= alt.hconcat()
-row |= base.encode() + lag_mob
-row |= base.encode() + kan_mob
+row |= base.encode(alt.X('date:T', title="DATE")) + lag_mob
+row |= base.encode(alt.X('date:T', title="DATE")) + kan_mob
 chart_m &= row
 
 row= alt.hconcat()
-row |= base.encode() + abj_mob
-row |= base.encode() + riv_mob
+row |= base.encode(alt.X('date:T', title="DATE")) + abj_mob
+row |= base.encode(alt.X('date:T', title="DATE")) + riv_mob
 chart_m &= row
 
 #We put elements on screen here
