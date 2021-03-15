@@ -205,25 +205,25 @@ color = alt.condition(selection, alt.Color('Trendline:N'), alt.value('lightgray'
 make_selector_m = alt.Chart(make).mark_rect(align='right').encode(alt.Y('Trendline',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection).properties(title='Trendline Filter')
 lag_mob = alt.Chart(df3).mark_line().encode(alt.X('date:T', title="DATE"), y=alt.Y('value:Q', title= "Percentage Increase from Baseline"), color=alt.Color('Trendline:N', legend=None),
                                                       tooltip=['date', 'value:Q']
-                                                      ).transform_filter(selection).interactive()
+                                                      ).transform_filter(selection)
 
 df2 = kan[['date', 'retail_and_recreation', 'grocery_and_pharmacy', 'parks_percent', 'transit_stations', 'workplaces', 'residential']] 
 df3 = kan.melt(id_vars=['date'], var_name='Trendline', value_name='value')
 kan_mob = alt.Chart(df3).mark_line().encode(alt.X('date:T', title="DATE"), y=alt.Y('value:Q', title= "Percentage Increase from Baseline"), color=alt.Color('Trendline:N', legend=None),
                                                       tooltip=['date', 'value:Q']
-                                                      ).transform_filter(selection).interactive()
+                                                      ).transform_filter(selection)
 
 df2 = abj[['date', 'retail_and_recreation', 'grocery_and_pharmacy', 'parks_percent', 'transit_stations', 'workplaces', 'residential']] 
 df3 = abj.melt(id_vars=['date'], var_name='Trendline', value_name='value')
 abj_mob = alt.Chart(df3).mark_line().encode(alt.X('date:T', title="DATE"), y=alt.Y('value:Q', title= "Percentage Increase from Baseline"), color=alt.Color('Trendline:N', legend=None),
                                                       tooltip=['date', 'value:Q']
-                                                      ).transform_filter(selection).interactive()
+                                                      ).transform_filter(selection)
 
 df2 = riv[['date', 'retail_and_recreation', 'grocery_and_pharmacy', 'parks_percent', 'transit_stations', 'workplaces', 'residential']] 
 df3 = riv.melt(id_vars=['date'], var_name='Trendline', value_name='value')
 riv_mob = alt.Chart(df3).mark_line().encode(alt.X('date:T', title="DATE"), y=alt.Y('value:Q', title= "Percentage Increase from Baseline"), color=alt.Color('Trendline:N', legend=None),
                                                       tooltip=['date', 'value:Q']
-                                                      ).transform_filter(selection).interactive()
+                                                      ).transform_filter(selection)
 
 base = alt.Chart().mark_line().encode(
 
@@ -232,16 +232,16 @@ base = alt.Chart().mark_line().encode(
     height=200
 ).transform_filter(selection).interactive()
 
-chart_m = alt.vconcat()
+chart_m = alt.vconcat(data=df_m)
 
 row= alt.hconcat()
-row |= base + lag_mob
-row |= base + kan_mob
+row |= base.encode(alt.X('date:T', title="DATE")) + lag_mob
+row |= base.encode(alt.X('date:T', title="DATE")) + kan_mob
 chart_m &= row
 
 row= alt.hconcat()
-row |= base + abj_mob
-row |= base + riv_mob
+row |= base.encode(alt.X('date:T', title="DATE")) + abj_mob
+row |= base.encode(alt.X('date:T', title="DATE")) + riv_mob
 chart_m &= row
 
 #We put elements on screen here
