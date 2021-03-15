@@ -28,6 +28,10 @@ df = pd.read_excel('Copy of nga_subnational_covid19_hera.xlsx')
 
 
 
+
+
+
+
 #Situation in Nigeria at a Glance
 
 #Situation in Nigeria at a Glance
@@ -157,9 +161,9 @@ df_cases_by_date_states = df_cases_by_date_states.reset_index()
 df_cases_by_date_states['Active Cases (in hundreds)'] = ((df_cases_by_date_states['CONTAMINES'].cumsum()) - (df_cases_by_date_states['GUERIS'].cumsum()) + (df_cases_by_date_states['DECES'].cumsum()))/100
 #df_cases_by_date['Cumulative Change in Number of Cases'] = (df_cases_by_date['CONTAMINES'].cumsum())/100
 
-df_cases_by_date_states['Percentage Change in New Cases'] = (df_cases_by_date_states['Active Cases (in hundreds)'].pct_change(fill_method='ffill'))*100
+df_cases_by_date_states['Percentage Change in New Cases'] = (df_cases_by_date_states['New Cases'].pct_change(fill_method='ffill'))*100
 
-
+df_cases_by_date_states = df_cases_by_date_states.replace([np.inf, -np.inf], np.nan)
 make_states = pd.DataFrame({'Trendline': ['New Cases', 'Active Cases (in hundreds)', 'Percentage Change in New Cases']})
 df2_states = df_cases_by_date_states[['DATE', 'New Cases', 'Active Cases (in hundreds)', 'Percentage Change in New Cases']] 
 df3_states = df2_states.melt(id_vars=['DATE'], var_name='Trendline', value_name='value')
@@ -173,7 +177,7 @@ new_and_cum_cases_states = alt.Chart(df3_states).mark_line().encode(alt.X('DATE:
 
 
 
-first_chart_states = (new_and_cum_cases_states + lockdown_chart + lockdown_chart2).properties(title='Active, New and Percentage Change in New Cases in Lagos, Kano, Rivers and the FCT') | (make_selector_states & make_selector2 & make_selector3)
+first_chart_states = (lockdown_chart + lockdown_chart2 + new_and_cum_cases_states).properties(width=600, title='Active, New and Percentage Change in New Cases in Lagos, Kano, Rivers and the FCT') | (make_selector_states & make_selector2 & make_selector3)
 
 #We put elements on screen here
 
@@ -183,4 +187,3 @@ components.html(html_temp, width=1000, height=700)
 st.write(first_chart)
 st.write(first_chart_states)
 st.write(second_chart | make_selector2 & make_selector3)
-
