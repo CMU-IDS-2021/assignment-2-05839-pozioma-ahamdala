@@ -6,7 +6,6 @@ import datetime
 import numpy as np
 
 st.markdown("<h1 style='text-align: center; color: black;'>COVID-19, Restrictions and Mobility in Nigeria</h1>", unsafe_allow_html=True)
-st.title("COVID-19, Restrictions and Mobility in Nigeria")
 
 #@st.cache  # add caching so we load the data only once
 def load_data():
@@ -96,7 +95,6 @@ lockdown_chart2 = lockdown_chart2.mark_text(
 first_chart = (new_and_cum_cases + lockdown_chart + lockdown_chart2).properties(width=600) | (make_selector & make_selector2 & make_selector3)
 
 
-
 #Some variables resolution
 #States Division
 df_fct = df.loc[df['REGION']=='Federal Capital Territory'].dropna(axis=0, how='all')
@@ -108,7 +106,6 @@ df_fct = df_fct.reset_index()
 df_lagos = df_lagos.reset_index()
 df_kano = df_kano.reset_index()
 df_rivers = df_rivers.reset_index()
-
 
 states_new_cases = pd.DataFrame(columns=['DATE', 'Lagos', 'Kano', 'Federal Capital Territory', 'Rivers'])
 states_new_cases['DATE'] = df_lagos['DATE']
@@ -130,13 +127,13 @@ base = alt.Chart().mark_line().encode(
 chart = alt.vconcat(data=states_new_cases)
 
 row= alt.hconcat()
-row |= base.encode(alt.X('DATE:T'), alt.Y('Lagos:Q', title="New Cases in Lagos")).properties(height=200, width=350) + lockdown_chart + lockdown_chart2
-row |= base.encode(alt.X('DATE:T'), alt.Y('Kano:Q', title="New Cases in Kano")).properties(height=200, width=350) + lockdown_chart + lockdown_chart2
+row |= base.encode(alt.X('DATE:T'), alt.Y('Lagos:Q', title="Daily Cases")).properties(height=200, width=350, title="Lagos") + lockdown_chart + lockdown_chart2
+row |= base.encode(alt.X('DATE:T'), alt.Y('Kano:Q', title="Daily Cases")).properties(height=200, width=350, title="Kano") + lockdown_chart + lockdown_chart2
 chart &= row
 
 row= alt.hconcat()
-row |= base.encode(alt.X('DATE:T'), alt.Y('Rivers:Q', title="New Cases in Rivers")).properties(height=200, width=350) + lockdown_chart + lockdown_chart2
-row |= base.encode(alt.X('DATE:T'), alt.Y('Federal Capital Territory:Q', title="New Cases in Federal Capital Territory")).properties(height=200, width=350) + lockdown_chart + lockdown_chart2
+row |= base.encode(alt.X('DATE:T'), alt.Y('Rivers:Q', title="Daily Cases")).properties(height=200, width=350, title="Rivers") + lockdown_chart + lockdown_chart2
+row |= base.encode(alt.X('DATE:T'), alt.Y('Federal Capital Territory:Q', title="Daily Cases")).properties(height=200, width=350, title="Federal Capital Territory") + lockdown_chart + lockdown_chart2
 chart &= row
 
 second_chart = chart
@@ -228,29 +225,35 @@ riv_mob = alt.Chart(df3).mark_line().encode(alt.X('date:T', title="DATE"), y=alt
 base = alt.Chart().mark_line().encode(
 
 ).properties(
-    width=400,
-    height=400
+    width=200,
+    height=200
 ).transform_filter(selection).interactive()
 
 empty_df = pd.DataFrame(columns = ['Date'])
 chart_m = alt.vconcat(data=empty_df)
 
 row= alt.hconcat()
-row |= base.encode(alt.X('date:T', title="DATE")) + lag_mob
-row |= base.encode(alt.X('date:T', title="DATE")) + kan_mob
+row |= base.encode(alt.X('date:T', title="DATE").properties(height=200, width=350, title="Lagos")) + lag_mob
+row |= base.encode(alt.X('date:T', title="DATE").properties(height=200, width=350, title="Kano")) + kan_mob
 chart_m &= row
 
 row= alt.hconcat()
-row |= base.encode(alt.X('date:T', title="DATE")) + abj_mob
-row |= base.encode(alt.X('date:T', title="DATE")) + riv_mob
+row |= base.encode(alt.X('date:T', title="DATE").properties(height=200, width=350, title="Federal Capital Territory")) + abj_mob
+row |= base.encode(alt.X('date:T', title="DATE").properties(height=200, width=350, title="Rivers")) + riv_mob
 chart_m &= row
 
 #We put elements on screen here
 
 st.markdown("<h2 style='text-align: center; color: black;'>Nigeria at a Glance</h2>", unsafe_allow_html=True)
-st.markdown("<h2 style='text-align: center; color: black;'>Context about Nigeria?? </h2>", unsafe_allow_html=True)
+#st.markdown("<h2 style='text-align: center; color: black;'>Context about Nigeria?? </h2>", unsafe_allow_html=True)
 components.html(html_temp, width=1000, height=700)
-st.write(first_chart)
+#st.write(first_chart)
+
+st.markdown("<h2 style='text-align: center; color: black;'>Total COVID Cases Across Lagos, Kano, FCT and Rivers</h2>", unsafe_allow_html=True)
 st.write(first_chart_states)
+
+st.markdown("<h2 style='text-align: center; color: black;'>Daily COVID Cases Across Lagos, Kano, FCT and Rivers</h2>", unsafe_allow_html=True)
 st.write(second_chart | make_selector2 & make_selector3)
+
+st.markdown("<h2 style='text-align: center; color: black;'>Mobility Changes Across Lagos, Kano, FCT and Rivers as the Virus Progressed</h2>", unsafe_allow_html=True)
 st.write(chart_m | make_selector_m)
