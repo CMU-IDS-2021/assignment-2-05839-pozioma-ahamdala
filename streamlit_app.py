@@ -173,7 +173,7 @@ new_and_cum_cases_states = alt.Chart(df3_states).mark_line().encode(alt.X('DATE:
 
 
 
-first_chart_states = (new_and_cum_cases_states + lockdown_chart + lockdown_chart2).properties(width=600, title='Active, New and Percentage Change in New Cases in Lagos, Kano, Rivers and the FCT') | (make_selector_states & make_selector2 & make_selector3)
+first_chart_states = (new_and_cum_cases_states + lockdown_chart + lockdown_chart2).properties(title='Active, New and Percentage Change in New Cases in Lagos, Kano, Rivers and the FCT') | (make_selector_states & make_selector2 & make_selector3)
 
 #We put elements on screen here
 
