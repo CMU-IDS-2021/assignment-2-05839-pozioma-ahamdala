@@ -157,7 +157,7 @@ df_cases_by_date_states = df_cases_by_date_states.reset_index()
 df_cases_by_date_states['Active Cases (in hundreds)'] = ((df_cases_by_date_states['CONTAMINES'].cumsum()) - (df_cases_by_date_states['GUERIS'].cumsum()) + (df_cases_by_date_states['DECES'].cumsum()))/100
 #df_cases_by_date['Cumulative Change in Number of Cases'] = (df_cases_by_date['CONTAMINES'].cumsum())/100
 
-df_cases_by_date_states['Percentage Change in New Cases'] = (df_cases_by_date_states['New Cases'].pct_change(fill_method='ffill'))*100
+df_cases_by_date_states['Percentage Change in New Cases'] = (df_cases_by_date_states['Active Cases (in hundreds)'].pct_change(fill_method='ffill'))*100
 
 
 make_states = pd.DataFrame({'Trendline': ['New Cases', 'Active Cases (in hundreds)', 'Percentage Change in New Cases']})
