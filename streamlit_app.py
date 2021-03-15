@@ -57,11 +57,11 @@ new_and_cum_cases = alt.Chart(df3).mark_line().encode(alt.X('DATE:T', title="DAT
 
 
 #Lockdown One
-lockdown1 = datetime.datetime(2020, 3, 30)
+lockdown1_start = datetime.datetime(2020, 3, 30)
 lockdown1_end = datetime.datetime(2020, 7, 27)
 make2 = pd.DataFrame({'Labels': ['Start', 'End']})
 lockdown1 = pd.DataFrame(columns=['DATE', 'Labels'])
-lockdown1['DATE'] = [lockdown_date, lockdown1_end]
+lockdown1['DATE'] = [lockdown1_start, lockdown1_end]
 lockdown1['Labels'] = ['Start', 'End']
 selection2 = alt.selection_multi(fields=['Labels'], empty='none')
 color = alt.condition(selection2, alt.Color('Labels:N'), alt.value('lightgray'))
@@ -78,13 +78,13 @@ lockdown_chart = lockdown_chart.mark_text(
                                                       
 
 #Lockdown Two
-lockdown1 = datetime.datetime(2020, 12, 21)
-lockdown1_end = datetime.datetime(2021, 1, 18)
+lockdown2_start = datetime.datetime(2020, 12, 21)
+lockdown2_end = datetime.datetime(2021, 1, 18)
 
 
 make3 = pd.DataFrame({'Labels': ['Start', 'End']})
 lockdown2 = pd.DataFrame(columns=['DATE', 'Labels'])
-lockdown2['DATE'] = [lockdown2_date, lockdown2_end]
+lockdown2['DATE'] = [lockdown2_start, lockdown2_end]
 lockdown2['Labels'] = ['Start', 'End']
 selection3 = alt.selection_multi(fields=['Labels'], empty='none')
 color = alt.condition(selection3, alt.Color('Labels:N'), alt.value('lightgray'))
