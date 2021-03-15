@@ -31,6 +31,8 @@ df = pd.read_excel('Copy of nga_subnational_covid19_hera.xlsx')
 
 #Situation in Nigeria at a Glance
 
+#Situation in Nigeria at a Glance
+
 df['New Cases'] = df['CONTAMINES']
 df_cases_by_date = df.groupby(df['DATE']).sum()
 df_cases_by_date = df_cases_by_date.reset_index()
@@ -45,7 +47,7 @@ df2 = df_cases_by_date[['DATE', 'New Cases', 'Active Cases (in hundreds)', 'Perc
 df3 = df2.melt(id_vars=['DATE'], var_name='Trendline', value_name='value')
 selection = alt.selection_multi(fields=['Trendline'])
 color = alt.condition(selection, alt.Color('Trendline:N'), alt.value('lightgray'))
-make_selector = alt.Chart(make).mark_rect(align='right').encode(alt.Y('Trendline',axis=alt.Axis(orient='right')), color=color).add_selection(selection)
+make_selector = alt.Chart(make).mark_rect(align='right').encode(alt.Y('Trendline',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection).properties(title='Trendline Filter')
 new_and_cum_cases = alt.Chart(df3).mark_line().encode(alt.X('DATE:T', title="DATE"), y=alt.Y('value:Q', title= " "), color=alt.Color('Trendline:N', legend=None),
                                                       tooltip=['DATE', 'value:Q']
                                                       ).transform_filter(selection).interactive()
@@ -54,96 +56,53 @@ new_and_cum_cases = alt.Chart(df3).mark_line().encode(alt.X('DATE:T', title="DAT
 
 
 
-
-lockdown_date = datetime.datetime(2020,3,30)
-lockdown2_date = datetime.datetime(2020,12,21)
-no_of_cases_first_lockdown = df_cases_by_date.loc[ df_cases_by_date['DATE']==lockdown_date, 'CONTAMINES'].values[0]
-no_of_cases_second_lockdown = df_cases_by_date.loc[ df_cases_by_date['DATE']==lockdown2_date, 'CONTAMINES'].values[0]
-
-no_of_active_cases_first_lockdown = df_cases_by_date.loc[ df_cases_by_date['DATE']==lockdown_date, 'Active Cases (in hundreds)'].values[0]
-no_of_active_cases_second_lockdown = df_cases_by_date.loc[ df_cases_by_date['DATE']==lockdown2_date, 'Active Cases (in hundreds)'].values[0]
-
-
-lockdown_starts = {"DATE": [lockdown_date, lockdown2_date], "New Cases": [no_of_cases_first_lockdown, no_of_cases_second_lockdown ], "Active Cases (in hundreds)": [no_of_active_cases_first_lockdown, no_of_active_cases_second_lockdown ], "Label":["First Lockdown Starts", "Second Lockdown Starts"] }
-first_lockdown_start = pd.DataFrame(lockdown_starts, columns=["DATE", "New Cases", "Active Cases (in hundreds)", "Label"])
-lockdown_start = pd.DataFrame([{"DATE": lockdown_date, "New Cases": no_of_cases_first_lockdown} ])
-
-first_lockdown_start_line = alt.Chart(first_lockdown_start).mark_point(size=200).encode(
-    alt.X('DATE:T', title=''), color=alt.Color('Label:N'), y='New Cases:Q',
-        
-    tooltip=['DATE', 'New Cases', 'Active Cases (in hundreds)'],
-).interactive()
-
-df_cases_by_date['lockdown_date'] = lockdown_date 
-first_lockdown_start = alt.Chart(df_cases_by_date).mark_rule().encode(
-    alt.X('lockdown_date', title=""), color=alt.value('green'))
-
-
-
-df_cases_by_date['lockdown2_date'] = lockdown2_date 
-second_lockdown_start = alt.Chart(df_cases_by_date).mark_rule().encode(
-    alt.X('lockdown2_date', title=""), color=alt.value('green'),
-    tooltip=['lockdown2_date'])
-
-
-text_first_lockdown = first_lockdown_start.mark_text(
-    align='left',
-    baseline='middle',
-    dx=3
-).encode(
-    text='lockdown_date:T'
-)
-
-
-text_second_lockdown = second_lockdown_start.mark_text(
-    align='left',
-    baseline='middle',
-    dx=3  
-).encode(
-    text='lockdown2_date:T'
-)
-
+#Lockdown One
+lockdown1 = datetime.datetime(2020, 3, 30)
 lockdown1_end = datetime.datetime(2020, 7, 27)
-df_cases_by_date['lockdown1_end'] = lockdown1_end 
-first_lockdown_end = alt.Chart(df_cases_by_date).mark_rule().encode(
-    alt.X('lockdown1_end', title=""), color=alt.value('black'))
+make2 = pd.DataFrame({'Labels': ['Start', 'End']})
+lockdown1 = pd.DataFrame(columns=['DATE', 'Labels'])
+lockdown1['DATE'] = [lockdown_date, lockdown1_end]
+lockdown1['Labels'] = ['Start', 'End']
+selection2 = alt.selection_multi(fields=['Labels'], empty='none')
+color = alt.condition(selection2, alt.Color('Labels:N'), alt.value('lightgray'))
+make_selector2 = alt.Chart(make2).mark_rect(align='right').encode(alt.Y('Labels',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection2).properties(title='First Lockdown')
+lockdown_chart = alt.Chart(lockdown1).encode(alt.X('DATE:T', title="DATE"), text='DATE:T', color=alt.Color('Labels:N', legend=None)).transform_filter(selection2)
 
 
-text_first_lockdown_end = first_lockdown_end.mark_text(
-    align='left',
-    baseline='middle',
-    dx=3 
-).encode(
-    text='lockdown1_end:T'
-)
-
-
-lockdown2_end = datetime.datetime(2021, 1, 18)
-df_cases_by_date['lockdown2_end'] = lockdown2_end 
-second_lockdown_end = alt.Chart(df_cases_by_date).mark_rule().encode(
-    alt.X('lockdown2_end', title=""), color=alt.value('black'))
-
-
-text_second_lockdown_end = second_lockdown_end.mark_text(
+lockdown_chart = lockdown_chart.mark_text(
     align='left',
     baseline='middle',
     dx=3,  
     dy=20
-).encode(
-    text='lockdown2_end:T'
-)
+) + lockdown_chart.mark_rule()
+                                                      
+
+#Lockdown Two
+lockdown1 = datetime.datetime(2020, 12, 21)
+lockdown1_end = datetime.datetime(2021, 1, 18)
 
 
+make3 = pd.DataFrame({'Labels': ['Start', 'End']})
+lockdown2 = pd.DataFrame(columns=['DATE', 'Labels'])
+lockdown2['DATE'] = [lockdown2_date, lockdown2_end]
+lockdown2['Labels'] = ['Start', 'End']
+selection3 = alt.selection_multi(fields=['Labels'], empty='none')
+color = alt.condition(selection3, alt.Color('Labels:N'), alt.value('lightgray'))
+make_selector3 = alt.Chart(make3).mark_rect(align='right').encode(alt.Y('Labels',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection3).properties(title='Second Lockdown')
+lockdown_chart2 = alt.Chart(lockdown2).encode(alt.X('DATE:T', title="DATE"), text='DATE:T',color=alt.Color('Labels:N', legend=None)).transform_filter(selection3)
 
 
+lockdown_chart2 = lockdown_chart2.mark_text(
+    align='left',
+    baseline='middle',
+    dx=3,  
+    dy=110
+) + lockdown_chart2.mark_rule()
 
+#End of Lockdown 
 
+first_chart = (new_and_cum_cases + lockdown_chart + lockdown_chart2).properties(width=600) | (make_selector & make_selector2 & make_selector3)
 
-
-
-combined = new_and_cum_cases+first_lockdown_start+second_lockdown_start +text_first_lockdown + text_second_lockdown + first_lockdown_end + text_first_lockdown_end + second_lockdown_end + text_second_lockdown_end
-to_plot1 = combined.interactive().properties(width=600, title='COVID-19 in Nigeria as at 3rd of March 2020 -- Green and black lines represent start and end of major restrictions resp.')
-#Situation in Nigeria at a Glance Ends
 
 
 #Some variables resolution
@@ -167,13 +126,6 @@ states_new_cases['Federal Capital Territory'] = df_fct['New Cases']
 states_new_cases['Rivers'] = df_rivers['New Cases']
 
 
-
-
-
-
-
-#New Cases each state starts here
-
 #New Cases each state starts here
 
 base = alt.Chart().mark_line().encode(
@@ -186,24 +138,22 @@ base = alt.Chart().mark_line().encode(
 chart = alt.vconcat(data=states_new_cases)
 
 row= alt.hconcat()
-row |= base.encode(alt.X('DATE:T'), alt.Y('Lagos:Q', title="New Cases in Lagos")).properties(height=200, width=350) + first_lockdown_start+second_lockdown_start +text_first_lockdown + text_second_lockdown + first_lockdown_end + text_first_lockdown_end + second_lockdown_end + text_second_lockdown_end
-row |= base.encode(alt.X('DATE:T'), alt.Y('Kano:Q', title="New Cases in Kano")).properties(height=200, width=350) + first_lockdown_start+second_lockdown_start +text_first_lockdown + text_second_lockdown + first_lockdown_end + text_first_lockdown_end + second_lockdown_end + text_second_lockdown_end
+row |= base.encode(alt.X('DATE:T'), alt.Y('Lagos:Q', title="New Cases in Lagos")).properties(height=200, width=350) + lockdown_chart + lockdown_chart2
+row |= base.encode(alt.X('DATE:T'), alt.Y('Kano:Q', title="New Cases in Kano")).properties(height=200, width=350) + lockdown_chart + lockdown_chart2
 chart &= row
 
 row= alt.hconcat()
-row |= base.encode(alt.X('DATE:T'), alt.Y('Rivers:Q', title="New Cases in Rivers")).properties(height=200, width=350) + first_lockdown_start+second_lockdown_start +text_first_lockdown + text_second_lockdown + first_lockdown_end + text_first_lockdown_end + second_lockdown_end + text_second_lockdown_end
-row |= base.encode(alt.X('DATE:T'), alt.Y('Federal Capital Territory:Q', title="New Cases in Federal Capital Territory")).properties(height=200, width=350) + first_lockdown_start+second_lockdown_start +text_first_lockdown + text_second_lockdown + first_lockdown_end + text_first_lockdown_end + second_lockdown_end + text_second_lockdown_end
+row |= base.encode(alt.X('DATE:T'), alt.Y('Rivers:Q', title="New Cases in Rivers")).properties(height=200, width=350) + lockdown_chart + lockdown_chart2
+row |= base.encode(alt.X('DATE:T'), alt.Y('Federal Capital Territory:Q', title="New Cases in Federal Capital Territory")).properties(height=200, width=350) + lockdown_chart + lockdown_chart2
 chart &= row
 
+second_chart = chart
 
-#New Cases each state ends starts here
-
-#New Cases each state ends starts here
 
 
 
 
 #We put elements on screen here
-st.write(to_plot1 | make_selector)
 components.html(html_temp, width=1000, height=700)
-st.write(chart)
+st.write(first_chart)
+st.write(second_chart | make_selector2 & make_selector3)
