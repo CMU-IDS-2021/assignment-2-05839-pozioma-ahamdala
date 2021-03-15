@@ -236,16 +236,16 @@ base = alt.Chart().mark_line().encode(
 chart_m = alt.vconcat()
 
 row= alt.hconcat()
-row |= lag_mob.interactive()
-row |= kan_mob.interactive()
+row |= base + lag_mob
+row |= base + kan_mob
 chart_m &= row
 
 row= alt.hconcat()
-row |= abj_mob.interactive()
-row |= riv_mob.interactive()
+row |= base + abj_mob.interactive()
+row |= base + riv_mob.interactive()
 chart_m &= row
 
-chart_m.interactive()
+chart_m
 
 #We put elements on screen here
 
