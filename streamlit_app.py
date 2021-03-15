@@ -241,8 +241,8 @@ row |= base + kan_mob
 chart_m &= row
 
 row= alt.hconcat()
-row |= base + abj_mob.interactive()
-row |= base + riv_mob.interactive()
+row |= base + abj_mob
+row |= base + riv_mob
 chart_m &= row
 
 chart_m
