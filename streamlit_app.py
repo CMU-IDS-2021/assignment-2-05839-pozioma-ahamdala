@@ -245,6 +245,8 @@ row |= abj_mob.interactive()
 row |= riv_mob.interactive()
 chart_m &= row
 
+chart_m.interactive()
+
 #We put elements on screen here
 
 st.markdown("<h2 style='text-align: center; color: black;'>Nigeria at a Glance</h2>", unsafe_allow_html=True)
@@ -253,4 +255,5 @@ components.html(html_temp, width=1000, height=700)
 st.write(first_chart)
 st.write(first_chart_states)
 st.write(second_chart | make_selector2 & make_selector3)
+
 st.write(chart_m | make_selector_m)
