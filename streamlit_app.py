@@ -236,13 +236,13 @@ base = alt.Chart().mark_line().encode(
 chart_m = alt.vconcat()
 
 row= alt.hconcat()
-row |= lag_mob
-row |= kan_mob
+row |= lag_mob.interactive()
+row |= kan_mob.interactive()
 chart_m &= row
 
 row= alt.hconcat()
-row |= abj_mob
-row |= riv_mob
+row |= abj_mob.interactive()
+row |= riv_mob.interactive()
 chart_m &= row
 
 #We put elements on screen here
@@ -253,5 +253,4 @@ components.html(html_temp, width=1000, height=700)
 st.write(first_chart)
 st.write(first_chart_states)
 st.write(second_chart | make_selector2 & make_selector3)
-
 st.write(chart_m | make_selector_m)
