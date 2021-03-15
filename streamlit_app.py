@@ -28,7 +28,6 @@ df = pd.read_excel('Copy of nga_subnational_covid19_hera.xlsx')
 
 
 
-
 #Situation in Nigeria at a Glance
 
 #Situation in Nigeria at a Glance
@@ -39,11 +38,11 @@ df_cases_by_date = df_cases_by_date.reset_index()
 df_cases_by_date['Active Cases (in hundreds)'] = ((df_cases_by_date['CONTAMINES'].cumsum()) - (df_cases_by_date['GUERIS'].cumsum()) + (df_cases_by_date['DECES'].cumsum()))/100
 #df_cases_by_date['Cumulative Change in Number of Cases'] = (df_cases_by_date['CONTAMINES'].cumsum())/100
 
-df_cases_by_date['Percentage change in active cases (from yesterday)'] = (df_cases_by_date['Active Cases (in hundreds)'].pct_change(fill_method='ffill'))*100
+df_cases_by_date['Percentage Change in New Cases'] = (df_cases_by_date['Active Cases (in hundreds)'].pct_change(fill_method='ffill'))*100
 
 
-make = pd.DataFrame({'Trendline': ['New Cases', 'Active Cases (in hundreds)', 'Percentage change in active cases (from yesterday)']})
-df2 = df_cases_by_date[['DATE', 'New Cases', 'Active Cases (in hundreds)', 'Percentage change in active cases (from yesterday)']] 
+make = pd.DataFrame({'Trendline': ['New Cases', 'Active Cases (in hundreds)', 'Percentage Change in New Cases']})
+df2 = df_cases_by_date[['DATE', 'New Cases', 'Active Cases (in hundreds)', 'Percentage Change in New Cases']] 
 df3 = df2.melt(id_vars=['DATE'], var_name='Trendline', value_name='value')
 selection = alt.selection_multi(fields=['Trendline'])
 color = alt.condition(selection, alt.Color('Trendline:N'), alt.value('lightgray'))
@@ -149,11 +148,39 @@ chart &= row
 
 second_chart = chart
 
+#Cumulative in the States
+
+states_df = df[(df['REGION'] == 'Lagos') | (df['REGION'] == 'Kano') | (df['REGION'] == 'Rivers') | (df['REGION'] == 'Federal Capital Territory') ]
+
+df_cases_by_date_states = states_df.groupby(df['DATE']).sum()
+df_cases_by_date_states = df_cases_by_date_states.reset_index()
+df_cases_by_date_states['Active Cases (in hundreds)'] = ((df_cases_by_date_states['CONTAMINES'].cumsum()) - (df_cases_by_date_states['GUERIS'].cumsum()) + (df_cases_by_date_states['DECES'].cumsum()))/100
+#df_cases_by_date['Cumulative Change in Number of Cases'] = (df_cases_by_date['CONTAMINES'].cumsum())/100
+
+df_cases_by_date_states['Percentage Change in New Cases'] = (df_cases_by_date_states['New Cases'].pct_change(fill_method='ffill'))*100
+
+
+make_states = pd.DataFrame({'Trendline': ['New Cases', 'Active Cases (in hundreds)', 'Percentage Change in New Cases']})
+df2_states = df_cases_by_date_states[['DATE', 'New Cases', 'Active Cases (in hundreds)', 'Percentage Change in New Cases']] 
+df3_states = df2_states.melt(id_vars=['DATE'], var_name='Trendline', value_name='value')
+selection_states = alt.selection_multi(fields=['Trendline'])
+color_states = alt.condition(selection_states, alt.Color('Trendline:N'), alt.value('lightgray'))
+make_selector_states = alt.Chart(make_states).mark_rect(align='right').encode(alt.Y('Trendline',axis=alt.Axis(orient='right'), title=""), color=color_states).add_selection(selection_states).properties(title='Trendline Filter')
+new_and_cum_cases_states = alt.Chart(df3_states).mark_line().encode(alt.X('DATE:T', title="DATE"), y=alt.Y('value:Q', title= " "), color=alt.Color('Trendline:N', legend=None),
+                                                      tooltip=['DATE', 'value:Q']
+                                                      ).transform_filter(selection_states).interactive()
 
 
 
+
+first_chart_states = (new_and_cum_cases_states + lockdown_chart + lockdown_chart2).properties(width=600, title='Active, New and Percentage Change in New Cases in Lagos, Kano, Rivers and the FCT') | (make_selector_states & make_selector2 & make_selector3)
 
 #We put elements on screen here
+
+st.markdown("<h2 style='text-align: center; color: black;'>Nigeria at a Glance</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center; color: black;'>Context about Nigeria?? </h2>", unsafe_allow_html=True)
 components.html(html_temp, width=1000, height=700)
 st.write(first_chart)
+st.write(first_chart_states)
 st.write(second_chart | make_selector2 & make_selector3)
+
