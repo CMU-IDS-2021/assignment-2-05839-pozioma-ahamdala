@@ -207,7 +207,6 @@ lag_mob = alt.Chart(df3).mark_line().encode(alt.X('date:T', title="DATE"), y=alt
                                                       tooltip=['date', 'value:Q']
                                                       ).transform_filter(selection).interactive()
 
-
 df2 = kan[['date', 'retail_and_recreation', 'grocery_and_pharmacy', 'parks_percent', 'transit_stations', 'workplaces', 'residential']] 
 df3 = kan.melt(id_vars=['date'], var_name='Trendline', value_name='value')
 kan_mob = alt.Chart(df3).mark_line().encode(alt.X('date:T', title="DATE"), y=alt.Y('value:Q', title= "Percentage Increase from Baseline"), color=alt.Color('Trendline:N', legend=None),
@@ -242,10 +241,8 @@ chart_m &= row
 
 row= alt.hconcat()
 row |= abj_mob
-row |=  riv_mob
+row |= riv_mob
 chart_m &= row
-
-chart_m
 
 #We put elements on screen here
 
@@ -255,5 +252,4 @@ components.html(html_temp, width=1000, height=700)
 st.write(first_chart)
 st.write(first_chart_states)
 st.write(second_chart | make_selector2 & make_selector3)
-
 st.write(chart_m | make_selector_m)
