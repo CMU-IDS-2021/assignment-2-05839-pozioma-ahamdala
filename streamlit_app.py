@@ -248,7 +248,7 @@ st.markdown("<h2 style='text-align: center; color: black;'>Nigeria at a Glance</
 #st.markdown("<h2 style='text-align: center; color: black;'>Context about Nigeria?? </h2>", unsafe_allow_html=True)
 st.write("Nigeria, also known as the Giant of Africa, belongs to the western part of Nigeria. The country recorded its first COVID-19 case on the 27th of February, 2020. Cases increased steadily after this. The country has had two major restrictions on movement and activities.")
 st.write("There are 36 states in the country. The most populated is Kano and this followed by Lagos. Lagos is the economic hub of the country and has by far, the highest number of recorded COVID-19 cases.")
-components.html(html_temp, width=1000, height=600)
+components.html(html_temp, width=900, height=600)
 #st.write(first_chart)
 
 st.markdown("<h2 style='text-align: center; color: black;'>Total COVID Cases Across Lagos, Kano, FCT and Rivers</h2>", unsafe_allow_html=True)
