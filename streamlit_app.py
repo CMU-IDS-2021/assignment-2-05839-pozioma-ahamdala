@@ -5,7 +5,7 @@ import streamlit.components.v1 as components
 import datetime
 import numpy as np
 
-st.markdown("<h1 style='text-align: center; color: black;'>'Understanding How Mobility Restrictions Affected COVID Cases in 4 Major Nigerian States</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: black;'>Understanding How Mobility Restrictions Affected COVID Cases in 4 Major Nigerian States</h1>", unsafe_allow_html=True)
 
 #@st.cache  # add caching so we load the data only once
 def load_data():
