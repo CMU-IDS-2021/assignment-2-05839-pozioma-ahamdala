@@ -248,7 +248,7 @@ chart_m &= row
 #Mobility vs Number of Cases
 df_lagos = df[df.REGION == 'Lagos'] 
 df_lagos.set_index('DATE', inplace=True)
-df_lagos = df_lagos.resample("W").mean()
+df_lagos = df_lagos.resample("W").sum()
 df_lagos = df_lagos.reset_index()
 
 
@@ -266,7 +266,7 @@ lag_w = alt.Chart(cases_workplace).mark_point().encode(y=alt.Y('workplaces:Q', t
 #Mobility vs Number of Cases
 df_kano = df[df.REGION == 'Kano'] 
 df_kano.set_index('DATE', inplace=True)
-df_kano = df_kano.resample("W").mean()
+df_kano = df_kano.resample("W").sum()
 df_kano = df_kano.reset_index()
 
 
@@ -284,7 +284,7 @@ kano_w = alt.Chart(cases_workplace_kano).mark_point().encode(y=alt.Y('workplaces
 #Mobility vs Number of Cases
 df_fct = df[df.REGION == 'Federal Capital Territory'] 
 df_fct.set_index('DATE', inplace=True)
-df_fct = df_fct.resample("W").mean()
+df_fct = df_fct.resample("W").sum()
 df_fct = df_fct.reset_index()
 
 fct_workplace = abj['workplaces']
@@ -301,7 +301,7 @@ fct_w = alt.Chart(cases_workplace_fct).mark_point().encode(y=alt.Y('workplaces:Q
 #Mobility vs Number of Cases
 df_rivers = df[df.REGION == 'Rivers'] 
 df_rivers.set_index('DATE', inplace=True)
-df_rivers = df_rivers.resample("W").mean()
+df_rivers = df_rivers.resample("W").sum()
 df_rivers = df_rivers.reset_index()
 
 rivers_workplace = riv['workplaces']
@@ -326,13 +326,13 @@ empty_df2 = pd.DataFrame(columns = ['New Cases', 'workplaces'])
 chart_w = alt.vconcat(data=empty_df2)
 
 row= alt.hconcat()
-row |= base_w.encode(alt.X('New Cases:Q', title="Average Daily Cases per week"), alt.Y('workplaces:Q', title="% increase in workplace mobility ")).properties(height=200, width=350, title="Lagos") + lag_w 
-row |= base_w.encode(alt.X('New Cases:Q', title="Average Daily Cases per week"), alt.Y('workplaces:Q', title="% increase in workplace mobility ")).properties(height=200, width=350, title="Kano") + kano_w
+row |= base_w.encode(alt.X('New Cases:Q', title="Weekly Cases"), alt.Y('workplaces:Q', title="% increase in workplace mobility ")).properties(height=200, width=350, title="Lagos") + lag_w 
+row |= base_w.encode(alt.X('New Cases:Q', title="Weekly Cases"), alt.Y('workplaces:Q', title="% increase in workplace mobility ")).properties(height=200, width=350, title="Kano") + kano_w
 chart_w &= row
 
 row= alt.hconcat()
-row |= base_w.encode(alt.X('New Cases:Q', title="Average Daily Cases per week"), alt.Y('workplaces:Q', title="% increase in workplace mobility ")).properties(height=200, width=350, title="Federal Capital Territory") + fct_w
-row |= base_w.encode(alt.X('New Cases:Q', title="Average Daily Cases per week"), alt.Y('workplaces:Q', title="% increase in workplace mobility")).properties(height=200, width=350, title="Rivers") + rivers_w
+row |= base_w.encode(alt.X('New Cases:Q', title="Weekly Cases"), alt.Y('workplaces:Q', title="% increase in workplace mobility ")).properties(height=200, width=350, title="Federal Capital Territory") + fct_w
+row |= base_w.encode(alt.X('New Cases:Q', title="Weekly Cases"), alt.Y('workplaces:Q', title="% increase in workplace mobility")).properties(height=200, width=350, title="Rivers") + rivers_w
 chart_w &= row
 
 
@@ -360,4 +360,5 @@ st.write(second_chart | make_selector2 & make_selector3)
 
 st.markdown("<h2 style='text-align: center; color: black;'>Mobility Changes Across Lagos, Kano, FCT and Rivers as the Virus Progressed</h2>", unsafe_allow_html=True)
 st.write(chart_m | make_selector_m & make_selector2 & make_selector3)
+st.write("Correlation between Weekly New Cases and Workplaces' Mobility")
 st.write(chart_w)
