@@ -319,7 +319,7 @@ base_w = alt.Chart().mark_line().encode(
 
 ).properties(
     width=400,
-    height=400
+    height=400, title="Correlation between Weekly Cases and Workplaces' Mobility""
 ).interactive()
 
 empty_df2 = pd.DataFrame(columns = ['New Cases', 'workplaces'])
@@ -360,5 +360,6 @@ st.write(second_chart | make_selector2 & make_selector3)
 
 st.markdown("<h2 style='text-align: center; color: black;'>Mobility Changes Across Lagos, Kano, FCT and Rivers as the Virus Progressed</h2>", unsafe_allow_html=True)
 st.write(chart_m | make_selector_m & make_selector2 & make_selector3)
-st.write("Correlation between Weekly New Cases and Workplaces' Mobility")
+
+st.markdown("<h2 style='text-align: center; color: black;'>Workplace Mobility and Weekly Casesd</h2>", unsafe_allow_html=True)
 st.write(chart_w)
