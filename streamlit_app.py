@@ -127,13 +127,13 @@ base = alt.Chart().mark_line().encode(
 chart = alt.vconcat(data=states_new_cases)
 
 row= alt.hconcat()
-row |= base.encode(alt.X('DATE:T'), alt.Y('Lagos:Q', title="Daily Cases")).properties(height=200, width=350, title="Lagos") + lockdown_chart + lockdown_chart2
-row |= base.encode(alt.X('DATE:T'), alt.Y('Kano:Q', title="Daily Cases")).properties(height=200, width=350, title="Kano") + lockdown_chart + lockdown_chart2
+row |= base.encode(alt.X('DATE:T'), alt.Y('Lagos:Q', title="Daily Cases"), tooltip=['DATE', 'Lagos:Q']).properties(height=200, width=350, title="Lagos") + lockdown_chart + lockdown_chart2
+row |= base.encode(alt.X('DATE:T'), alt.Y('Kano:Q', title="Daily Cases"), tooltip=['DATE', 'Kano:Q']).properties(height=200, width=350, title="Kano") + lockdown_chart + lockdown_chart2
 chart &= row
 
 row= alt.hconcat()
-row |= base.encode(alt.X('DATE:T'), alt.Y('Rivers:Q', title="Daily Cases")).properties(height=200, width=350, title="Rivers") + lockdown_chart + lockdown_chart2
-row |= base.encode(alt.X('DATE:T'), alt.Y('Federal Capital Territory:Q', title="Daily Cases")).properties(height=200, width=350, title="Federal Capital Territory") + lockdown_chart + lockdown_chart2
+row |= base.encode(alt.X('DATE:T'), alt.Y('Rivers:Q', title="Daily Cases"), tooltip=['DATE', 'Rivers:Q']).properties(height=200, width=350, title="Rivers") + lockdown_chart + lockdown_chart2
+row |= base.encode(alt.X('DATE:T'), alt.Y('Federal Capital Territory:Q', title="Daily Cases"), tooltip=['DATE', 'Federal Capital Territory:Q']).properties(height=200, width=350, title="Federal Capital Territory") + lockdown_chart + lockdown_chart2
 chart &= row
 
 second_chart = chart
