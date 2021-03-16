@@ -86,7 +86,7 @@ lockdown_chart2 = alt.Chart(lockdown2).encode(alt.X('DATE:T', title="DATE"), tex
 lockdown_chart2 = lockdown_chart2.mark_text(
     align='left',
     baseline='middle',
-    dx=-25,  
+    dx=-75,  
     dy=1
 ) + lockdown_chart2.mark_rule()
 
