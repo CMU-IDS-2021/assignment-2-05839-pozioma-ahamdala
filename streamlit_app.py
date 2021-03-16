@@ -252,6 +252,7 @@ components.html(html_temp, width=1000, height=600)
 #st.write(first_chart)
 
 st.markdown("<h2 style='text-align: center; color: black;'>Total COVID Cases Across Lagos, Kano, FCT and Rivers</h2>", unsafe_allow_html=True)
+st.write("Lagos, Kano, Rivers and the Federal Capital Territory are some of the most populated states in the country. These states are mostly urbanized and represent the four geographical regions in the country")
 st.write(first_chart_states)
 
 st.markdown("<h2 style='text-align: center; color: black;'>Daily COVID Cases Across Lagos, Kano, FCT and Rivers</h2>", unsafe_allow_html=True)
