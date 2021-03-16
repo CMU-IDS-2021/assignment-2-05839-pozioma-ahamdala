@@ -55,6 +55,9 @@ Comparing the four states, Kano seems to be the least compliant to these lockdow
 
 ![image](https://user-images.githubusercontent.com/60380962/111325739-a5262180-8674-11eb-8e72-098976e079fd.png)
 
+We also considered the correlation between workplace mobility and number of covid cases for Lagos state as shown below:
+![image](https://user-images.githubusercontent.com/60380962/111386856-872ce100-86b5-11eb-8ca8-84a93d70e861.png)
 
+What we observe is that both are loosely correlated. This is likely due to the irregularities mentioned above and how lockdowns or changes in mobility do not exactly have close impact on the cases observed.
 
 
