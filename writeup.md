@@ -2,19 +2,11 @@
 
 ![image](https://user-images.githubusercontent.com/60380962/111293030-7f3b5580-8651-11eb-9aca-b3a2e72a95b5.png)
 
-TODO: Update screenshot
-
-TODO: Short abstract describing the main goals and how you achieved them.
-
 ## Project Goals
-
-TODO: **A clear description of the goals of your project.** Describe the question that you are enabling a user to answer. The question should be compelling and the solution should be focused on helping users achieve their goals. 
 
 We intend to explore how the COVID-19 pandemic progressed in Nigeria pre- and post-lockdown. The major question we are trying to answer is to see if the lockdown and mobility restrictions had significant impact on the COVID-19 progression in Nigeria and if it is an effective method of containment. Our intended audience is government bodies, or individuals who may be seeking to understand the COVID-19 pandemic, what measures were useful for containment, and how to progress further. The insights we hope to get from this project entails, the effectiveness of lockdowns, the compliance of the citizens with lockdown measures, the adoption of remote working by employers and panic buying in post-lockdown in the states. We hope this solution allows our intended audience and users understand the relationship between COVID-19 cases and mobility restrictions, within the context of the four Nigerian states in focus (Lagos, Kano, Rivers and the Federal Capital Territory(Abuja)).
 
 ## Design
-
-TODO: **A rationale for your design decisions.** How did you choose your particular visual encodings and interaction techniques? What alternatives did you consider and how did you arrive at your ultimate choices?
 
 The application can be splitted into two sections. A section that allows a broad view of the COVID-19 situation in Nigeria and another that explores COVID-19, lockdown and mobility in 4 major Nigerian states: Lagos, Kano, Rivers and the Federal Capital Territory(Abuja). These states represent 4 major geo-political zones, hence our choosing them out of the 36 states in Nigeria
 
@@ -32,8 +24,6 @@ This grid format and layered representation of the states and mobility measures 
 
 ## Development
 
-TODO: **An overview of your development process.** Describe how the work was split among the team members. Include a commentary on the development process, including answers to the following questions: Roughly how much time did you spend developing your application (in people-hours)? What aspects took the most time?
-
 Both of us sourced and cleaned up the COVID data and mobility data from HDX and Google respectively. Then, Hamdalat focused on the representation of the COVID cases while Ozioma focused on the visualizations on mobility data. Both of us also worked together on putting the documentation. 
 
 The development process began from deciding what question we wanted to answer.
@@ -46,8 +36,6 @@ We spent roughly 40 hours in people-hours, meaning each of us spent about 20 hou
 
 ## Success Story
 
-TODO:  **A success story of your project.** Describe an insight or discovery you gain with your application that relates to the goals of your project.
-
 The major insight we gathered from the first lockdown, was that across the different states, there was a sharp drop in cases just about the time when the lockdown was instituted but the after about a month, it started to steadily rise again and it continued even after the end of the first lockdown. The same was observed in the second lockdown. It seems as though the level of strictness of enforcing the lockdown wore out as the period extended to the point where it made almost no difference again. Also, the cases did not drop immediately after the lockdown was instituted. This is intuitive because it does take a while for the human body to begin to show symptoms after the virus has entered the system. 
 
 This can mean different things. First, the lockdown is effective for containment as long as it can be enforced and followed strictly. Second, extended lockdowns are not as effective because mobility, and consequently the cases begin to rise regardless of the lockdown after a certain point. This may mean that humans are difficult to contain for extended period, maybe because people have to go out to earn, or the social impact isolation has on humans. 
@@ -58,7 +46,7 @@ We also sought to answer the question of whether the pandemic has affected mode 
 
 ![image](https://user-images.githubusercontent.com/60380962/111324033-12d14e00-8673-11eb-96f3-4d0b7a6c6951.png)
 
-Also, we noticed a significant dip and sharp rise afterward, towards the end of October, just before November which is due to the nationwide #EndSars campaign against police bruatility. The campaign led to some violence which caused curfews, and a lot of people to staying indoors. 
+Also, we noticed a significant dip and sharp rise afterward, towards the end of October, just before November which is due to the nationwide #EndSars campaign against police brutality. The campaign led to some violence which caused curfews, and a lot of people to staying indoors. 
 
 From the chart below, we see that panic buying wasn't as rampant because they was no significant dip/rise at lockdown points. It just seemed to differ as the other places.
 Also, from the image below, we noticed that there was not as much compliance to the second lockdown restrictions compared to the first. This may be because they were not as strict or because it was during the festive season. One would expect some traffic around the retail_and_recreation points, but we don't see that here. 
