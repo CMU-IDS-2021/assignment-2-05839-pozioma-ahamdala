@@ -87,7 +87,7 @@ lockdown_chart2 = lockdown_chart2.mark_text(
     align='left',
     baseline='middle',
     dx=3,  
-    dy=10
+    dy=1
 ) + lockdown_chart2.mark_rule()
 
 #End of Lockdown 
