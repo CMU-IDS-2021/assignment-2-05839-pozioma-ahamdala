@@ -246,7 +246,7 @@ chart_m &= row
 
 st.markdown("<h2 style='text-align: center; color: black;'>Nigeria at a Glance</h2>", unsafe_allow_html=True)
 #st.markdown("<h2 style='text-align: center; color: black;'>Context about Nigeria?? </h2>", unsafe_allow_html=True)
-components.html(html_temp, width=1000, height=400)
+components.html(html_temp, width=900, height=500)
 #st.write(first_chart)
 
 st.markdown("<h2 style='text-align: center; color: black;'>Total COVID Cases Across Lagos, Kano, FCT and Rivers</h2>", unsafe_allow_html=True)
