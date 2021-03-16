@@ -242,6 +242,106 @@ row |= base.encode(alt.X('date:T', title="DATE")).properties(height=200, width=3
 row |= base.encode(alt.X('date:T', title="DATE")).properties(height=200, width=350, title="Rivers") + riv_mob + lockdown_chart + lockdown_chart2
 chart_m &= row
 
+
+#Workplace Mobility vs Daily Cases per week
+
+#Mobility vs Number of Cases
+df_lagos = df[df.REGION == 'Lagos'] 
+df_lagos.set_index('DATE', inplace=True)
+df_lagos = df_lagos.resample("W").mean()
+df_lagos = df_lagos.reset_index()
+
+
+lag_workplace = lag['workplaces']
+lag_cases = df_lagos['New Cases']
+
+cases_workplace = pd.DataFrame(columns=['workplaces', 'New Cases'])
+
+cases_workplace['workplaces'] = lag['workplaces']
+cases_workplace['New Cases'] = df_lagos['New Cases']
+
+lag_w = alt.Chart(cases_workplace).mark_point().encode(y=alt.Y('workplaces:Q', title=""), x=alt.X('New Cases', title= "")).properties(width=600)
+
+
+#Mobility vs Number of Cases
+df_kano = df[df.REGION == 'Kano'] 
+df_kano.set_index('DATE', inplace=True)
+df_kano = df_kano.resample("W").mean()
+df_kano = df_kano.reset_index()
+
+
+kano_workplace = kan['workplaces']
+kano_cases = df_kano['New Cases']
+
+cases_workplace_kano = pd.DataFrame(columns=['workplaces', 'New Cases'])
+
+cases_workplace_kano['workplaces'] = kan['workplaces']
+cases_workplace_kano['New Cases'] = df_kano['New Cases']
+
+kano_w = alt.Chart(cases_workplace_kano).mark_point().encode(y=alt.Y('workplaces:Q', title=""), x=alt.X('New Cases', title= "")).properties(width=600)
+
+
+#Mobility vs Number of Cases
+df_fct = df[df.REGION == 'Federal Capital Territory'] 
+df_fct.set_index('DATE', inplace=True)
+df_fct = df_fct.resample("W").mean()
+df_fct = df_fct.reset_index()
+
+fct_workplace = abj['workplaces']
+fct_cases = df_fct['New Cases']
+
+cases_workplace_fct = pd.DataFrame(columns=['workplaces', 'New Cases'])
+
+cases_workplace_fct['workplaces'] = abj['workplaces']
+cases_workplace_fct['New Cases'] = df_fct['New Cases']
+
+fct_w = alt.Chart(cases_workplace_fct).mark_point().encode(y=alt.Y('workplaces:Q', title=""), x=alt.X('New Cases', title= "")).properties(width=600)
+
+
+#Mobility vs Number of Cases
+df_rivers = df[df.REGION == 'Rivers'] 
+df_rivers.set_index('DATE', inplace=True)
+df_rivers = df_rivers.resample("W").mean()
+df_rivers = df_rivers.reset_index()
+
+rivers_workplace = riv['workplaces']
+rivers_cases = df_rivers['New Cases']
+
+cases_workplace_rivers = pd.DataFrame(columns=['workplaces', 'New Cases'])
+
+cases_workplace_rivers['workplaces'] = riv['workplaces']
+cases_workplace_rivers['New Cases'] = df_rivers['New Cases']
+
+rivers_w = alt.Chart(cases_workplace_rivers).mark_point().encode(y=alt.Y('workplaces:Q', title=""), x=alt.X('New Cases', title= "")).properties(width=600)
+
+
+base_w = alt.Chart().mark_line().encode(
+
+).properties(
+    width=400,
+    height=400
+).interactive()
+
+empty_df2 = pd.DataFrame(columns = ['New Cases', 'workplaces'])
+chart_w = alt.vconcat(data=empty_df2)
+
+row= alt.hconcat()
+row |= base_w.encode(alt.X('New Cases:Q', title="Average Daily Cases per week"), alt.Y('workplaces:Q', title="% increase in workplace mobility ")).properties(height=200, width=350, title="Lagos") + lag_w 
+row |= base_w.encode(alt.X('New Cases:Q', title="Average Daily Cases per week"), alt.Y('workplaces:Q', title="% increase in workplace mobility ")).properties(height=200, width=350, title="Kano") + kano_w
+chart_w &= row
+
+row= alt.hconcat()
+row |= base_w.encode(alt.X('New Cases:Q', title="Average Daily Cases per week"), alt.Y('workplaces:Q', title="% increase in workplace mobility ")).properties(height=200, width=350, title="Federal Capital Territory") + fct_w
+row |= base_w.encode(alt.X('New Cases:Q', title="Average Daily Cases per week"), alt.Y('workplaces:Q', title="% increase in workplace mobility")).properties(height=200, width=350, title="Rivers") + rivers_w
+chart_w &= row
+
+
+
+
+
+
+
+
 #We put elements on screen here
 
 st.markdown("<h2 style='text-align: center; color: black;'>Nigeria at a Glance</h2>", unsafe_allow_html=True)
@@ -260,3 +360,4 @@ st.write(second_chart | make_selector2 & make_selector3)
 
 st.markdown("<h2 style='text-align: center; color: black;'>Mobility Changes Across Lagos, Kano, FCT and Rivers as the Virus Progressed</h2>", unsafe_allow_html=True)
 st.write(chart_m | make_selector_m & make_selector2 & make_selector3)
+st.write(chart_w)
