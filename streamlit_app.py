@@ -319,7 +319,7 @@ base_w = alt.Chart().mark_line().encode(
 
 ).properties(
     width=400,
-    height=400, title="Correlation between Weekly Cases and Workplaces' Mobility""
+    height=400, title="Correlation between Weekly Cases and Workplaces' Mobility"
 ).interactive()
 
 empty_df2 = pd.DataFrame(columns = ['New Cases', 'workplaces'])
