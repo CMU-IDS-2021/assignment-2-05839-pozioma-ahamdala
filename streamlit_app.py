@@ -56,8 +56,8 @@ lockdown1['DATE'] = [lockdown1_start, lockdown1_end]
 lockdown1['Labels'] = ['Start', 'End']
 selection2 = alt.selection_multi(fields=['Labels'], empty='none')
 color = alt.condition(selection2, alt.Color('Labels:N'), alt.value('lightgray'))
-trend_selector2 = alt.Chart(trend2).mark_rect(align='right').encode(alt.Y('Labels',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection2).properties(title='First Lockdown')
-lockdown_chart = alt.Chart(lockdown1).encode(alt.X('DATE:T', title="DATE"), text='DATE:T', color=alt.Color('Labels:N', legend=None)).transform_filter(selection2)
+trend_selector2 = alt.Chart(trend2).mark_rect(align='right').encode(alt.Y('Labels',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection2).properties(title='First Lockdown (2020)')
+lockdown_chart = alt.Chart(lockdown1).encode(alt.X('DATE:T', title="DATE"), text='monthdate(DATE):O', color=alt.Color('Labels:N', legend=None)).transform_filter(selection2)
 
 
 lockdown_chart = lockdown_chart.mark_text(
@@ -79,8 +79,8 @@ lockdown2['DATE'] = [lockdown2_start, lockdown2_end]
 lockdown2['Labels'] = ['Start', 'End']
 selection3 = alt.selection_multi(fields=['Labels'], empty='none')
 color = alt.condition(selection3, alt.Color('Labels:N'), alt.value('lightgray'))
-trend_selector3 = alt.Chart(trend3).mark_rect(align='right').encode(alt.Y('Labels',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection3).properties(title='Second Lockdown')
-lockdown_chart2 = alt.Chart(lockdown2).encode(alt.X('DATE:T', title="DATE"), text='DATE:T',color=alt.Color('Labels:N', legend=None)).transform_filter(selection3)
+trend_selector3 = alt.Chart(trend3).mark_rect(align='right').encode(alt.Y('Labels',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection3).properties(title='Second Lockdown (2021)')
+lockdown_chart2 = alt.Chart(lockdown2).encode(alt.X('DATE:T', title="DATE"), text='monthdate(DATE):O',color=alt.Color('Labels:N', legend=None)).transform_filter(selection3)
 
 
 lockdown_chart2 = lockdown_chart2.mark_text(
