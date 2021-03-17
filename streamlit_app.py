@@ -37,12 +37,12 @@ df_cases_by_date['Active Cases (in hundreds)'] = ((df_cases_by_date['CONTAMINES'
 df_cases_by_date['Percentage Change in New Cases'] = (df_cases_by_date['Active Cases (in hundreds)'].pct_change(fill_method='ffill'))*100
 
 
-make = pd.DataFrame({'Trendline': ['New Cases', 'Active Cases (in hundreds)', 'Percentage Change in New Cases']})
+trend = pd.DataFrame({'Trendline': ['New Cases', 'Active Cases (in hundreds)', 'Percentage Change in New Cases']})
 df2 = df_cases_by_date[['DATE', 'New Cases', 'Active Cases (in hundreds)', 'Percentage Change in New Cases']] 
 df3 = df2.melt(id_vars=['DATE'], var_name='Trendline', value_name='value')
 selection = alt.selection_multi(fields=['Trendline'])
 color = alt.condition(selection, alt.Color('Trendline:N'), alt.value('lightgray'))
-make_selector = alt.Chart(make).mark_rect(align='right').encode(alt.Y('Trendline',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection).properties(title='Trendline Filter')
+trend_selector = alt.Chart(trend).mark_rect(align='right').encode(alt.Y('Trendline',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection).properties(title='Trendline Filter')
 new_and_cum_cases = alt.Chart(df3).mark_line().encode(alt.X('DATE:T', title="DATE"), y=alt.Y('value:Q', title= " "), color=alt.Color('Trendline:N', legend=None),
                                                       tooltip=['DATE', 'value:Q']
                                                       ).transform_filter(selection).interactive()
@@ -50,18 +50,18 @@ new_and_cum_cases = alt.Chart(df3).mark_line().encode(alt.X('DATE:T', title="DAT
 #Lockdown One
 lockdown1_start = datetime.datetime(2020, 3, 30)
 lockdown1_end = datetime.datetime(2020, 7, 27)
-make2 = pd.DataFrame({'Labels': ['Start', 'End']})
+trend2 = pd.DataFrame({'Labels': ['Start', 'End']})
 lockdown1 = pd.DataFrame(columns=['DATE', 'Labels'])
 lockdown1['DATE'] = [lockdown1_start, lockdown1_end]
 lockdown1['Labels'] = ['Start', 'End']
 selection2 = alt.selection_multi(fields=['Labels'], empty='none')
 color = alt.condition(selection2, alt.Color('Labels:N'), alt.value('lightgray'))
-make_selector2 = alt.Chart(make2).mark_rect(align='right').encode(alt.Y('Labels',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection2).properties(title='First Lockdown')
+trend_selector2 = alt.Chart(trend2).mark_rect(align='right').encode(alt.Y('Labels',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection2).properties(title='First Lockdown')
 lockdown_chart = alt.Chart(lockdown1).encode(alt.X('DATE:T', title="DATE"), text='DATE:T', color=alt.Color('Labels:N', legend=None)).transform_filter(selection2)
 
 
 lockdown_chart = lockdown_chart.mark_text(
-    align='left',
+    align='center',
     baseline='middle',
     dx=3,  
     dy=20
@@ -73,18 +73,18 @@ lockdown2_start = datetime.datetime(2020, 12, 21)
 lockdown2_end = datetime.datetime(2021, 1, 18)
 
 
-make3 = pd.DataFrame({'Labels': ['Start', 'End']})
+trend3 = pd.DataFrame({'Labels': ['Start', 'End']})
 lockdown2 = pd.DataFrame(columns=['DATE', 'Labels'])
 lockdown2['DATE'] = [lockdown2_start, lockdown2_end]
 lockdown2['Labels'] = ['Start', 'End']
 selection3 = alt.selection_multi(fields=['Labels'], empty='none')
 color = alt.condition(selection3, alt.Color('Labels:N'), alt.value('lightgray'))
-make_selector3 = alt.Chart(make3).mark_rect(align='right').encode(alt.Y('Labels',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection3).properties(title='Second Lockdown')
+trend_selector3 = alt.Chart(trend3).mark_rect(align='right').encode(alt.Y('Labels',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection3).properties(title='Second Lockdown')
 lockdown_chart2 = alt.Chart(lockdown2).encode(alt.X('DATE:T', title="DATE"), text='DATE:T',color=alt.Color('Labels:N', legend=None)).transform_filter(selection3)
 
 
 lockdown_chart2 = lockdown_chart2.mark_text(
-    align='left',
+    align='center',
     baseline='middle',
     dx=3,  
     dy=1
@@ -92,7 +92,7 @@ lockdown_chart2 = lockdown_chart2.mark_text(
 
 #End of Lockdown 
 
-first_chart = (new_and_cum_cases + lockdown_chart + lockdown_chart2).properties(width=600) | (make_selector & make_selector2 & make_selector3)
+first_chart = (new_and_cum_cases + lockdown_chart + lockdown_chart2).properties(width=600) | (trend_selector & trend_selector2 & trend_selector3)
 
 
 #Some variables resolution
@@ -150,12 +150,12 @@ df_cases_by_date_states['Active Cases (in hundreds)'] = ((df_cases_by_date_state
 df_cases_by_date_states['Percentage Change in New Cases'] = (df_cases_by_date_states['New Cases'].pct_change(fill_method='ffill'))*100
 
 df_cases_by_date_states = df_cases_by_date_states.replace([np.inf, -np.inf], np.nan)
-make_states = pd.DataFrame({'Trendline': ['New Cases', 'Active Cases (in hundreds)', 'Percentage Change in New Cases']})
+trend_states = pd.DataFrame({'Trendline': ['New Cases', 'Active Cases (in hundreds)', 'Percentage Change in New Cases']})
 df2_states = df_cases_by_date_states[['DATE', 'New Cases', 'Active Cases (in hundreds)', 'Percentage Change in New Cases']] 
 df3_states = df2_states.melt(id_vars=['DATE'], var_name='Trendline', value_name='value')
 selection_states = alt.selection_multi(fields=['Trendline'])
 color_states = alt.condition(selection_states, alt.Color('Trendline:N'), alt.value('lightgray'))
-make_selector_states = alt.Chart(make_states).mark_rect(align='right').encode(alt.Y('Trendline',axis=alt.Axis(orient='right'), title=""), color=color_states).add_selection(selection_states).properties(title='Trendline Filter')
+trend_selector_states = alt.Chart(trend_states).mark_rect(align='right').encode(alt.Y('Trendline',axis=alt.Axis(orient='right'), title=""), color=color_states).add_selection(selection_states).properties(title='Trendline Filter')
 new_and_cum_cases_states = alt.Chart(df3_states).mark_line().encode(alt.X('DATE:T', title="DATE"), y=alt.Y('value:Q', title= " "), color=alt.Color('Trendline:N', legend=None),
                                                       tooltip=['DATE', 'value:Q']
                                                       ).transform_filter(selection_states).interactive()
@@ -163,7 +163,7 @@ new_and_cum_cases_states = alt.Chart(df3_states).mark_line().encode(alt.X('DATE:
 
 
 
-first_chart_states = (lockdown_chart + lockdown_chart2 + new_and_cum_cases_states).properties(width=600, title='Active, New and Percentage Change in New Cases in Lagos, Kano, Rivers and the FCT') | (make_selector_states & make_selector2 & make_selector3)
+first_chart_states = (lockdown_chart + lockdown_chart2 + new_and_cum_cases_states).properties(width=600, title='Active, New and Percentage Change in New Cases in Lagos, Kano, Rivers and the FCT') | (trend_selector_states & trend_selector2 & trend_selector3)
 
 #MOBILITY
 df_m = pd.read_excel('NigeriaMobilityData.xlsx')
@@ -193,13 +193,13 @@ df_m.set_index("date", inplace=True)
 df_m = df_m.resample('W').mean()
 df_m = df_m.reset_index()
 
-make = pd.DataFrame({'Trendline': ['retail_and_recreation', 'grocery_and_pharmacy', 'parks_percent', 'transit_stations', 'workplaces', 'residential']})
+trend = pd.DataFrame({'Trendline': ['retail_and_recreation', 'grocery_and_pharmacy', 'parks_percent', 'transit_stations', 'workplaces', 'residential']})
 df2 = lag[['date', 'retail_and_recreation', 'grocery_and_pharmacy', 'parks_percent', 'transit_stations', 'workplaces', 'residential']] 
 df3 = lag.melt(id_vars=['date'], var_name='Trendline', value_name='value')
 selection = alt.selection_multi(fields=['Trendline'])
 
 color = alt.condition(selection, alt.Color('Trendline:N'), alt.value('lightgray'))
-make_selector_m = alt.Chart(make).mark_rect(align='right').encode(alt.Y('Trendline',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection).properties(title='Trendline Filter')
+trend_selector_m = alt.Chart(trend).mark_rect(align='right').encode(alt.Y('Trendline',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection).properties(title='Trendline Filter')
 lag_mob = alt.Chart(df3).mark_line().encode(alt.X('date:T', title="DATE"), y=alt.Y('value:Q', title= "Percentage Increase from Baseline"), color=alt.Color('Trendline:N', legend=None),
                                                       tooltip=['date', 'value:Q']
                                                       ).transform_filter(selection)
@@ -358,10 +358,10 @@ st.write("Lagos, Kano, Rivers and the Federal Capital Territory are some of the 
 st.write(first_chart_states)
 
 st.markdown("<h2 style='text-align: center; color: black;'>Daily COVID Cases Across Lagos, Kano, FCT and Rivers</h2>", unsafe_allow_html=True)
-st.write(second_chart | make_selector2 & make_selector3)
+st.write(second_chart | trend_selector2 & trend_selector3)
 
 st.markdown("<h2 style='text-align: center; color: black;'>Mobility Changes Across Lagos, Kano, FCT and Rivers as the Virus Progressed</h2>", unsafe_allow_html=True)
-st.write(chart_m | make_selector_m & make_selector2 & make_selector3)
+st.write(chart_m | trend_selector_m & trend_selector2 & trend_selector3)
 
 st.markdown("<h2 style='text-align: center; color: black;'>Correlation between Weekly Cases and Workplaces' Mobility</h2>", unsafe_allow_html=True)
 st.write(chart_w)
