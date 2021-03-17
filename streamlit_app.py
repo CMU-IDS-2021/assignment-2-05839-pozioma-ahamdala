@@ -200,7 +200,7 @@ selection = alt.selection_multi(fields=['Trendline'])
 
 color = alt.condition(selection, alt.Color('Trendline:N'), alt.value('lightgray'))
 trend_selector_m = alt.Chart(trend).mark_rect(align='right').encode(alt.Y('Trendline',axis=alt.Axis(orient='right'), title=""), color=color).add_selection(selection).properties(title='Trendline Filter')
-lag_mob = alt.Chart(df3).mark_line().encode(alt.X('date:T', title="DATE"), y=alt.Y('value:Q', title= "Percentage  from Baseline"), color=alt.Color('Trendline:N', legend=None),
+lag_mob = alt.Chart(df3).mark_line().encode(alt.X('date:T', title="DATE"), y=alt.Y('value:Q', title= "Percentage Change  from Baseline"), color=alt.Color('Trendline:N', legend=None),
                                                       tooltip=['date', 'value:Q']
                                                       ).transform_filter(selection)
 
