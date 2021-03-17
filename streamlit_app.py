@@ -278,7 +278,7 @@ cases_workplace_kano = pd.DataFrame(columns=['workplaces', 'New Cases'])
 cases_workplace_kano['workplaces'] = kan['workplaces']
 cases_workplace_kano['New Cases'] = df_kano['New Cases']
 
-kano_w = alt.Chart(cases_workplace_kano).mark_point().encode(y=alt.Y('workplaces:Q', title=""), x=alt.X('New Cases', title= "")).properties(width=600)
+kano_w = alt.Chart(cases_workplace_kano).mark_point().encode(y=alt.Y('workplaces:Q', title=""), x=alt.X('New Cases', title= ""), tooltip=['New Cases:Q', 'workplaces:Q']).properties(width=600)
 
 
 #Mobility vs Number of Cases
@@ -295,7 +295,7 @@ cases_workplace_fct = pd.DataFrame(columns=['workplaces', 'New Cases'])
 cases_workplace_fct['workplaces'] = abj['workplaces']
 cases_workplace_fct['New Cases'] = df_fct['New Cases']
 
-fct_w = alt.Chart(cases_workplace_fct).mark_point().encode(y=alt.Y('workplaces:Q', title=""), x=alt.X('New Cases', title= "")).properties(width=600)
+fct_w = alt.Chart(cases_workplace_fct).mark_point().encode(y=alt.Y('workplaces:Q', title=""), x=alt.X('New Cases', title= ""), tooltip=['New Cases:Q', 'workplaces:Q']).properties(width=600)
 
 
 #Mobility vs Number of Cases
@@ -312,7 +312,7 @@ cases_workplace_rivers = pd.DataFrame(columns=['workplaces', 'New Cases'])
 cases_workplace_rivers['workplaces'] = riv['workplaces']
 cases_workplace_rivers['New Cases'] = df_rivers['New Cases']
 
-rivers_w = alt.Chart(cases_workplace_rivers).mark_point().encode(y=alt.Y('workplaces:Q', title=""), x=alt.X('New Cases', title= "")).properties(width=600)
+rivers_w = alt.Chart(cases_workplace_rivers).mark_point().encode(y=alt.Y('workplaces:Q', title=""), x=alt.X('New Cases', title= ""), tooltip=['New Cases:Q', 'workplaces:Q']).properties(width=600)
 
 
 base_w = alt.Chart().mark_line().encode(
