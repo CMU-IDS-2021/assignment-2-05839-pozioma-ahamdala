@@ -260,7 +260,7 @@ cases_workplace = pd.DataFrame(columns=['workplaces', 'New Cases'])
 cases_workplace['workplaces'] = lag['workplaces']
 cases_workplace['New Cases'] = df_lagos['New Cases']
 
-lag_w = alt.Chart(cases_workplace).mark_point().encode(y=alt.Y('workplaces:Q', title=""), x=alt.X('New Cases', title= "")).properties(width=600)
+lag_w = alt.Chart(cases_workplace).mark_point().encode(y=alt.Y('workplaces:Q', title=""), x=alt.X('New Cases', title= ""), tooltip=['New Cases:Q', 'workplaces:Q']).properties(width=600)
 
 
 #Mobility vs Number of Cases
